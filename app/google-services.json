@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "827939386376",
+    "project_id": "foodelicious-8c630",
+    "storage_bucket": "foodelicious-8c630.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827939386376:android:c2198988efa4c1ed18cdbd",
+        "android_client_info": {
+          "package_name": "com.liran316332857.foodelicious"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "827939386376-3t1cc97g0e2cjdatt5nuki2fh4jvb0o1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCR6reIabVIs0Z8wdLgds-pTyizNZTXcvQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "827939386376-3t1cc97g0e2cjdatt5nuki2fh4jvb0o1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
