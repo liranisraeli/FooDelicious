@@ -17,39 +17,40 @@ import java.util.ArrayList;
 
 public class IngredientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    public interface Ingredientlistener {
+    public interface IngredientListener {
         void clicked(Ingredient ingredient, int position);
         void plus(Ingredient ingredient, int position);
         void minus(Ingredient ingredient, int position);
+        void longClick(Ingredient ingredient, int position);
     }
 
     private Activity activity;
     private ArrayList<Ingredient> ingredients = new ArrayList<>();
-    private Ingredientlistener liqueurlistener;
+    private IngredientListener ingredientlistener;
 
-    public IngredientAdapter(Activity activity, ArrayList<Ingredient> liqueurs){
+    public IngredientAdapter(Activity activity, ArrayList<Ingredient> ingredients){
         this.activity = activity;
         this.ingredients = ingredients;
     }
 
-    public void setLiqueurlistener(Ingredientlistener ingredientlistener) {
-        this.liqueurlistener = ingredientlistener;
+    public void setIngredientlistener(IngredientListener ingredientlistener) {
+        this.ingredientlistener = ingredientlistener;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_ingredient, parent, false);
-        LiqueurHolder liqueurHolder = new LiqueurHolder(view);
-        return liqueurHolder;
+        IngredientHolder ingredientHolder = new IngredientHolder(view);
+        return ingredientHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        final LiqueurHolder holder = (LiqueurHolder) viewHolder;
+        final IngredientHolder holder = (IngredientHolder) viewHolder;
         Ingredient ingredient = getItem(position);
 
-        holder.liqueur_LBL_title.setText(ingredient.getName());
-        holder.liqueur_LBL_amount.setText("" + ingredient.getAmount());
+        holder.ingridient_LBL_title.setText(ingredient.getName());
+        holder.ingridient_LBL_amount.setText("" + ingredient.getAmount());
     }
 
     @Override
@@ -63,35 +64,35 @@ public class IngredientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
 
-    class LiqueurHolder extends RecyclerView.ViewHolder {
+    class IngredientHolder extends RecyclerView.ViewHolder {
 
-        private MaterialTextView liqueur_LBL_title;
-        private MaterialTextView liqueur_LBL_amount;
-        private MaterialButton liqueur_BTN_plus;
-        private MaterialButton liqueur_BTN_minus;
+        private MaterialTextView ingridient_LBL_title;
+        private MaterialTextView ingridient_LBL_amount;
+        private MaterialButton ingridient_BTN_plus;
+        private MaterialButton ingridient_BTN_minus;
 
 
-        public LiqueurHolder(View itemView) {
+        public IngredientHolder(View itemView) {
             super(itemView);
-            liqueur_LBL_title = itemView.findViewById(R.id.liqueur_LBL_title);
-            liqueur_LBL_amount = itemView.findViewById(R.id.liqueur_LBL_amount);
-            liqueur_BTN_plus = itemView.findViewById(R.id.liqueur_BTN_plus);
-            liqueur_BTN_minus = itemView.findViewById(R.id.liqueur_BTN_minus);
+            ingridient_LBL_title = itemView.findViewById(R.id.ingridient_LBL_title);
+            ingridient_LBL_amount = itemView.findViewById(R.id.ingridient_LBL_amount);
+            ingridient_BTN_plus = itemView.findViewById(R.id.ingridient_BTN_plus);
+            ingridient_BTN_minus = itemView.findViewById(R.id.ingridient_BTN_minus);
 
-            liqueur_BTN_minus.setOnClickListener(new View.OnClickListener() {
+            ingridient_BTN_minus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (liqueurlistener != null) {
-                        liqueurlistener.minus(getItem(getAdapterPosition()), getAdapterPosition());
+                    if (ingredientlistener != null) {
+                        ingredientlistener.minus(getItem(getAdapterPosition()), getAdapterPosition());
                     }
                 }
             });
 
-            liqueur_BTN_plus.setOnClickListener(new View.OnClickListener() {
+            ingridient_BTN_plus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (liqueurlistener != null) {
-                        liqueurlistener.plus(getItem(getAdapterPosition()), getAdapterPosition());
+                    if (ingredientlistener != null) {
+                        ingredientlistener.plus(getItem(getAdapterPosition()), getAdapterPosition());
                     }
                 }
             });
@@ -99,11 +100,19 @@ public class IngredientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (liqueurlistener != null) {
-                        liqueurlistener.clicked(getItem(getAdapterPosition()), getAdapterPosition());
+                    if (ingredientlistener != null) {
+                        ingredientlistener.clicked(getItem(getAdapterPosition()), getAdapterPosition());
                     }
                 }
             });
+
+                    itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            ingredientlistener.longClick(getItem(getAdapterPosition()), getAdapterPosition());
+                            return true;
+                        }
+                    });
         }
 
     }

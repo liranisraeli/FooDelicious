@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp">
-
-
+    tools:context=".Activities.MyCategoryActivity">
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,7 +28,7 @@
                 app:menu="@menu/top_app_bar_menu"
                 app:navigationIcon="@drawable/ic_arrow_back"
                 app:navigationIconTint="@color/black"
-                app:title="My Ingredients"
+                app:title="My Recipes"
                 app:titleCentered="true"
                 android:fontFamily="@font/font_buttons"
                 app:titleTextColor="@color/black"
@@ -38,19 +37,19 @@
 
 
         </com.google.android.material.appbar.AppBarLayout>
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:orientation="vertical"-->
-<!--            android:padding="5dp">-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp">
 
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/ingredient_RECYC_ingredients"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="600dp"-->
-<!--                android:layout_margin="5dp"-->
-<!--                android:paddingTop="60dp" />-->
-<!--        </LinearLayout>-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/category_RECYC_recipes"
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                android:layout_margin="5dp"
+                android:paddingTop="60dp" />
+        </LinearLayout>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/main_FRG_container"
@@ -228,7 +227,3 @@
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
-
-
-
-

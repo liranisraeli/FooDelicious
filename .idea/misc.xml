@@ -23,20 +23,29 @@
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/drawable/shape_rounded_stroke.xml" value="0.16" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/activity_baking_ingredient.xml" value="0.1890625" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/activity_create_category.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/activity_create_recipe.xml" value="0.15260416666666668" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/activity_drawer_menu.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/activity_ingredient.xml" value="0.1890625" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/activity_list_card.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/activity_login.xml" value="0.14114583333333333" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/activity_menu.xml" value="0.24666666666666667" />
+        <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/activity_my_category.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/activity_my_recipe.xml" value="0.14479166666666668" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/activity_nav_header.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/activity_sign_up.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/activity_sign_up2.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/activity_splash.xml" value="0.24666666666666667" />
+        <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/categories_cards.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/fragment_home_lists.xml" value="0.22615384615384615" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/fragment_list.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/ingridient_cards.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/item_cards.xml" value="0.23854166666666668" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/list_baking_ingredient.xml" value="0.21354166666666666" />
-        <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/list_ingredient.xml" value="0.1890625" />
+        <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/list_ingredient.xml" value="0.264" />
+        <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/lists_cards.xml" value="0.23385416666666667" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/nav_header.xml" value="0.1890625" />
+        <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/layout/recipe_cards.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/menu/bottom_app_bar_menu.xml" value="0.23854166666666668" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/menu/drawer_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/yalii/AndroidStudioProjects/FooDelicious/app/src/main/res/menu/top_app_bar_menu.xml" value="0.23854166666666668" />

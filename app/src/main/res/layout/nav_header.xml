@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:background="#BDD3EF"
     android:layoutDirection="rtl"
-    tools:context=".nav_header">
+  >
 
 
     <FrameLayout

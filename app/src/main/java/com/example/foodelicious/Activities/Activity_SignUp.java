@@ -107,11 +107,10 @@ public class Activity_SignUp extends AppCompatActivity {
                 }
                 dataManager.setCurrentUser(tempMyUser);
                 storeUserInDB(tempMyUser);
-            }
-        });
     }
 
-
+});
+    }
     /**
      * Load ImagePicker activity to choose the category cover
      */
@@ -177,25 +176,14 @@ public class Activity_SignUp extends AppCompatActivity {
 
     }
 
-
-    private void storeUserInDB(MyUser userToStore) {
-        //Store the user UID by Phone number
-        DatabaseReference myRef = realtimeDB.getReference("users").child(userToStore.getUid());
-        myRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()) {
-                    myRef.setValue(userToStore).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            startActivity(new Intent(Activity_SignUp.this, MainActivity.class));
-                            finish();
-                        }
-                    });
-                }
+            private void storeUserInDB(MyUser userToStore) {
+                //Store the user UID by Phone number
+                DatabaseReference myRef = realtimeDB.getReference("users").child(userToStore.getUid());
+                myRef.child("name").setValue(userToStore.getName());
+                myRef.child("phoneNumber").setValue(userToStore.getPhoneNumber());
+                myRef.child("profileImgUrl").setValue(userToStore.getProfileImgUrl());
+                startActivity(new Intent(Activity_SignUp.this, MainActivity.class));
+                finish();
             }
-        });
-
-    }
 
 }

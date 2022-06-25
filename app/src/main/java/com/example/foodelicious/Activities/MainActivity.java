@@ -4,6 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -17,7 +21,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.foodelicious.Adapters.CategoriesAdapter;
 import com.example.foodelicious.Firebase.MyDataManager;
+import com.example.foodelicious.Objects.MyCategory;
 import com.example.foodelicious.Objects.MyUser;
 import com.example.foodelicious.R;
 import com.firebase.ui.auth.AuthUI;
@@ -35,17 +41,28 @@ import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ArrayList<MyCategory> myCategories = new ArrayList();
+    CategoriesAdapter categoriesAdapter;
+
+    private RecyclerView main_RECYC_categories;
+    private Bundle bundle;
+    private String currentCategoryName;
+
     private final MyDataManager dataManager = MyDataManager.getInstance();
     private final MyUser currentUser = dataManager.getCurrentUser();
     private final FirebaseDatabase realtimeDB = dataManager.getRealTimeDB();
@@ -54,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton toolbar_FAB_add;
     private BottomAppBar panel_AppBar_bottom;
     private MaterialToolbar panel_Toolbar_Top;
+
+    //fragment
+    private FragmentContainerView main_FRG_container;
+    private FragmentManager fragmentManager;
 
     //nav
     private NavigationView nav_view;
@@ -82,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
         panel_Toolbar_Top = findViewById(R.id.panel_Toolbar_Top);
         panel_AppBar_bottom = findViewById(R.id.panel_AppBar_bottom);
         toolbar_FAB_add = findViewById(R.id.toolbar_FAB_add);
+
+        main_RECYC_categories = findViewById(R.id.main_RECYC_categories);
+
+        main_FRG_container = findViewById(R.id.main_FRG_container);
 
         //nav
         nav_view = findViewById(R.id.nav_view);
@@ -150,6 +175,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        toolbar_FAB_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,Activity_create_category.class));
+
+            }
+        });
+
     }
 
 
@@ -168,16 +201,67 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void updateUI() {
-        //Update the UI with User's info
-        header_TXT_username.setText(dataManager.getCurrentUser().getName().toString());
+        DatabaseReference myRef = realtimeDB.getReference("users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                header_TXT_username.setText(snapshot.child("name").getValue(String.class));
+                Uri myUri = Uri.parse(snapshot.child("profileImgUrl/").getValue(String.class));
+                Glide.with(MainActivity.this)
+                        .load(myUri)
+                        .into(header_IMG_user);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference categoryRef= realtimeDB.getReference("users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("categories");
+        categoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    try {
+                        String image = child.child("image").getValue(String.class);
+                        String name = child.child("title").getValue(String.class);
+                        MyCategory tempCategory = new MyCategory();
+                        tempCategory.setTitle(name);
+                        tempCategory.setImage_cover(image);
+                        myCategories.add(tempCategory);
+
+                    } catch (Exception ex) {}
+                }
+                Log.d("pttt",myCategories.toString());
+                initAdapter();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void initAdapter() {
+        categoriesAdapter = new CategoriesAdapter(this, myCategories, new CategoriesAdapter.CategoryListener() {
+            @Override
+            public void clicked(MyCategory category, int position) {
+//                currentCategoryName
+                currentCategoryName = category.getTitle();
+                Intent intent = new Intent(MainActivity.this,MyCategoryActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("currentCategoryName",currentCategoryName);
+                intent.putExtra("Bundle",bundle);
+                Log.d("pttt",category.toString());
+                startActivity(intent);
 
 
-        //load imag profile
-        StorageReference bring = dataManager.getStorage().getReference().child(dataManager.getCurrentUser().getUid().toString());
-        Uri myUri = Uri.parse(dataManager.getCurrentUser().getProfileImgUrl());
-        Glide.with(MainActivity.this)
-                .load(myUri)
-                .into(header_IMG_user);
+            }
+        });
+        main_RECYC_categories.setLayoutManager(new GridLayoutManager(this,2));
+        main_RECYC_categories.setAdapter(categoriesAdapter);
     }
 
 

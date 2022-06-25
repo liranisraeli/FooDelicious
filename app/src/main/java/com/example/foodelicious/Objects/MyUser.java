@@ -1,6 +1,10 @@
 package com.example.foodelicious.Objects;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MyUser {
     private String uid;
@@ -78,5 +82,16 @@ public class MyUser {
 
     public boolean removeFromListsUids(String listUid) {
         return this.myListsUids.remove(listUid);
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("uid", uid);
+        result.put("name", name);
+        result.put("phoneNumber", phoneNumber);
+        result.put("profileImgUrl", profileImgUrl);
+        result.put("myListsUids", myListsUids);
+        return result;
     }
 }

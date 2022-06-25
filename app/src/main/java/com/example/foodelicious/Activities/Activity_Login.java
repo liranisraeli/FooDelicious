@@ -77,7 +77,7 @@ public class Activity_Login extends AppCompatActivity {
             public void onSuccess(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     MyUser user = dataSnapshot.getValue(MyUser.class);
-                    dataManager.setCurrentUser(user);
+                    dataManager.setCurrentUser(user); // OR dataManager.getInstance().setCurrentUser(user);
                     startActivity(new Intent(Activity_Login.this,MainActivity.class));
                 }
                 else{
