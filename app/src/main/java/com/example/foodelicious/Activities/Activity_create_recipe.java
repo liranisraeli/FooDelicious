@@ -69,12 +69,6 @@ public class Activity_create_recipe extends AppCompatActivity {
         });
     }
 
-    private void storeListInDB(MyCategory listToStore) {
-        DatabaseReference myRef = realtimeDB.getReference(KEY_RECIPES).child(listToStore.getCategoryUid());
-        myRef.child("name").setValue(listToStore.getTitle());
-        startActivity(new Intent(Activity_create_recipe.this, MyCategoryActivity.class));
-        finish();
-    }
 
 
 }

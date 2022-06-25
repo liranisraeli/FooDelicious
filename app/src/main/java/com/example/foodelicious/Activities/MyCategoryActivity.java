@@ -79,7 +79,7 @@ public class MyCategoryActivity extends AppCompatActivity {
 
     private void updateUI(String str) {
         DatabaseReference CategoryRef = realtimeDB.getReference("users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("categories").child(str).child("recipes");
-        Log.d("ppp", currentCategoryName +" 2");
+        Log.d("ppf", currentCategoryName +" 2");
 
         CategoryRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -115,7 +115,9 @@ public class MyCategoryActivity extends AppCompatActivity {
                 Intent intent = new Intent(MyCategoryActivity.this,MyRecipeActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("currentRecipeName", currentRecipeName);
-                Log.d("ppp", currentRecipeName + " 3");
+                //todo check
+                bundle.putString("currentCategoryName", currentCategoryName);
+                Log.d("ppc", currentRecipeName + " 3");
 
                 intent.putExtra("Bundle",bundle);
                 startActivity(intent);
@@ -192,9 +194,10 @@ public class MyCategoryActivity extends AppCompatActivity {
         toolbar_FAB_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MyCategoryActivity.this,Activity_create_recipe.class);
+                Intent intent = new Intent(MyCategoryActivity.this,Activity_ingredient.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("currentCategoryName", currentCategoryName);
+                bundle.putString("currentRecipeName", currentRecipeName);
                 intent.putExtra("Bundle",bundle);
                 startActivity(intent);
                 finish();

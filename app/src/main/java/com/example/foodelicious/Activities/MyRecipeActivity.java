@@ -60,6 +60,7 @@ public class MyRecipeActivity extends AppCompatActivity {
     private Bundle bundle;
     private String currentIngredientName;
     private String currentRecipeName;
+    private String currentCategoryName;
 
     private ArrayList<Ingredient> myIngredients = new ArrayList();
     IngredientAdapter ingredientAdapter = new IngredientAdapter(this, myIngredients);
@@ -72,23 +73,29 @@ public class MyRecipeActivity extends AppCompatActivity {
 
         if (getIntent().getBundleExtra("Bundle") != null){
             this.bundle = getIntent().getBundleExtra("Bundle");
+            currentCategoryName = bundle.getString("currentCategoryName");
             currentRecipeName = bundle.getString("currentRecipeName");
+//            Log.d("pptt", currentRecipeName);
+//            Log.d("ppcc", currentCategoryName);
         } else {
             this.bundle = new Bundle();
         }
+
         findViews();
         recipe_RECYC_ingredients.setLayoutManager(new LinearLayoutManager(this));
         recipe_RECYC_ingredients.setHasFixedSize(true);
         recipe_RECYC_ingredients.setAdapter(ingredientAdapter);
 
         initButtons();
-        updateUI(currentIngredientName);
+//        Log.d("ppp", currentCategoryName);
+//        Log.d("sshh", currentRecipeName);
+        updateUI();
     }
 
 
 
-    private void updateUI(String str) {
-        DatabaseReference listRef = realtimeDB.getReference("users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("recipes").child(str).child("ingredients");
+    private void updateUI() {
+        DatabaseReference listRef = realtimeDB.getReference("users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("categories").child(currentCategoryName).child("recipes").child(currentRecipeName).child("ingredient");
         listRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -114,7 +121,6 @@ public class MyRecipeActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
 
@@ -123,6 +129,7 @@ public class MyRecipeActivity extends AppCompatActivity {
             @Override
             public void clicked(Ingredient ingredient, int position) {
                 currentIngredientName = ingredient.getName();
+                //todo check
                 Intent intent = new Intent(MyRecipeActivity.this, Activity_ingredient.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("currentIngredientName", currentIngredientName);
