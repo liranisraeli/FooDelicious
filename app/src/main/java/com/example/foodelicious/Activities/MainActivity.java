@@ -36,8 +36,6 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
-import com.google.android.material.shape.CornerFamily;
-import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -45,7 +43,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -56,7 +53,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<MyCategory> myCategories = new ArrayList();
+    private ArrayList<MyCategory> myCategories;
     CategoriesAdapter categoriesAdapter;
 
     private RecyclerView main_RECYC_categories;
@@ -92,11 +89,33 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(panel_AppBar_bottom);
         setSupportActionBar(panel_Toolbar_Top);
 
+        buildArrays();
         findViews();
+        initAdapter();
         initButtons();
         updateUI();
     }
-
+    private void buildArrays() {
+        myCategories = new ArrayList<MyCategory>();
+        MyCategory categoryFish = new MyCategory();
+        categoryFish.setTitle("Fish").setImage_cover("https://firebasestorage.googleapis.com/v0/b/foodelicious-8c630.appspot.com/o/default_pictures%2Fic_fish.jpg?alt=media&token=aa16792a-5904-4bc6-a0ec-18b58f61e755");
+        myCategories.add(categoryFish);
+        MyCategory categoryMeat = new MyCategory();
+        categoryMeat.setTitle("Meat").setImage_cover("https://firebasestorage.googleapis.com/v0/b/foodelicious-8c630.appspot.com/o/default_pictures%2Fic_meat.jpg?alt=media&token=95281e1e-40ff-45be-8579-94f1f1fd71ee");
+        myCategories.add(categoryMeat);
+        MyCategory categoryPastas = new MyCategory();
+        categoryPastas.setTitle("Pastas").setImage_cover("https://firebasestorage.googleapis.com/v0/b/foodelicious-8c630.appspot.com/o/default_pictures%2Fic_pastas.jpg?alt=media&token=c7cb02c2-f6cb-4da1-be82-dddbfbbdf0ca");
+        myCategories.add(categoryPastas);
+        MyCategory categoryPizzas = new MyCategory();
+        categoryPizzas.setTitle("Pizzas").setImage_cover("https://firebasestorage.googleapis.com/v0/b/foodelicious-8c630.appspot.com/o/default_pictures%2Fic_pizza.jpg?alt=media&token=c87bd811-480c-4e90-8c63-6726a78fc865");
+        myCategories.add(categoryPizzas);
+        MyCategory categoryPies = new MyCategory();
+        categoryPies.setTitle("Pies").setImage_cover("https://firebasestorage.googleapis.com/v0/b/foodelicious-8c630.appspot.com/o/default_pictures%2Fic_pie.jpg?alt=media&token=6a3e1a30-b100-4a2b-bc87-1d835fa50e8a");
+        myCategories.add(categoryPies);
+        MyCategory categoryDesserts = new MyCategory();
+        categoryDesserts.setTitle("Desserts").setImage_cover("https://firebasestorage.googleapis.com/v0/b/foodelicious-8c630.appspot.com/o/default_pictures%2Fic_desserts.jpg?alt=media&token=333066e1-13dc-48fb-b243-ce7ddf1269f1");
+        myCategories.add(categoryDesserts);
+    }
 
     private void findViews() {
         drawer_layout = findViewById(R.id.drawer_layout);
@@ -218,30 +237,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        DatabaseReference categoryRef= realtimeDB.getReference("users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("categories");
-        categoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot child : snapshot.getChildren()) {
-                    try {
-                        String image = child.child("image").getValue(String.class);
-                        String name = child.child("title").getValue(String.class);
-                        MyCategory tempCategory = new MyCategory();
-                        tempCategory.setTitle(name);
-                        tempCategory.setImage_cover(image);
-                        myCategories.add(tempCategory);
-
-                    } catch (Exception ex) {}
-                }
-                Log.d("pttt",myCategories.toString());
-                initAdapter();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        DatabaseReference categoryRef= realtimeDB.getReference("users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("categories");
+//        categoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot child : snapshot.getChildren()) {
+//                    try {
+//                        String image = child.child("image").getValue(String.class);
+//                        String name = child.child("title").getValue(String.class);
+//                        MyCategory tempCategory = new MyCategory();
+//                        tempCategory.setTitle(name);
+//                        tempCategory.setImage_cover(image);
+//                        myCategories.add(tempCategory);
+//
+//                    } catch (Exception ex) {}
+//                }
+//                Log.d("pttt",myCategories.toString());
+//                initAdapter();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 
     private void initAdapter() {
@@ -250,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
             public void clicked(MyCategory category, int position) {
 //                currentCategoryName
                 currentCategoryName = category.getTitle();
-                Intent intent = new Intent(MainActivity.this,MyCategoryActivity.class);
+                Intent intent = new Intent(MainActivity.this, MyAllRecipesActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("currentCategoryName",currentCategoryName);
                 intent.putExtra("Bundle",bundle);

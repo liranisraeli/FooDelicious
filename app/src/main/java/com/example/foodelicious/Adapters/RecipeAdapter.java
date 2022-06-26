@@ -44,16 +44,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         final RecipeAdapter.RecipeHolder holder = (RecipeAdapter.RecipeHolder) viewHolder;
         MyRecipe recipe = getRecipe(position);
 
-        holder.list_LBL_title.setText(recipe.getName());
-//        if(list.getItems_Counter() == 0)
-//            holder.list_LBL_amount.setText("There are no items yet");
-//        else
-//            holder.list_LBL_amount.setText("" + list.getItems_Counter());
+        holder.recipe_LBL_title.setText(recipe.getName());
 
-        Glide
-                .with(activity)
-                .load(R.drawable.img_chef)
-                .into(holder.list_IMG_image);
+
+
+//        Glide
+//                .with(activity)
+//                .load(R.drawable.img_chef)
+//                .into(holder.recipe_IMG_image);
     }
 
     @Override
@@ -66,14 +64,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     class RecipeHolder extends RecyclerView.ViewHolder {
-        private AppCompatImageView list_IMG_image;
-        private MaterialTextView list_LBL_title;
+        private AppCompatImageView recipe_IMG_image;
+        private MaterialTextView recipe_LBL_title;
+        private MaterialTextView recipe_LBL_methodSteps;
 
 
         public RecipeHolder(View itemView) {
             super(itemView);
-            list_IMG_image = itemView.findViewById(R.id.list_IMG_image);
-            list_LBL_title = itemView.findViewById(R.id.list_LBL_title);
+            recipe_IMG_image = itemView.findViewById(R.id.list_IMG_image);
+            recipe_LBL_title = itemView.findViewById(R.id.recipe_LBL_title);
+
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

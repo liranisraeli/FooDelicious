@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class Activity_create_category extends AppCompatActivity {
 
     private FloatingActionButton createList_FAB_profile_pic;
@@ -29,7 +31,6 @@ public class Activity_create_category extends AppCompatActivity {
 
     private final MyDataManager dataManager = MyDataManager.getInstance();
     private final FirebaseDatabase realtimeDB = dataManager.getRealTimeDB();
-
 
     public static final String KEY_USERS = "users";
     public static final String KEY_CATEGORIES = "categories";
@@ -43,6 +44,9 @@ public class Activity_create_category extends AppCompatActivity {
         initButtons();
     }
 
+
+
+
     private void findViews() {
         createList_FAB_profile_pic = findViewById(R.id.createCat_FAB_profile_pic);
         createList_IMG_user = findViewById(R.id.createCat_IMG_user);
@@ -50,6 +54,8 @@ public class Activity_create_category extends AppCompatActivity {
         panel_BTN_create = findViewById(R.id.panel_BTN_create);
         createList_BAR_progress = findViewById(R.id.createCat_BAR_progress);
     }
+
+
 
     private void initButtons() {
         createList_FAB_profile_pic.setOnClickListener(new View.OnClickListener() {

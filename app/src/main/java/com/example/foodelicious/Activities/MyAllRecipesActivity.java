@@ -35,7 +35,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MyCategoryActivity extends AppCompatActivity {
+public class MyAllRecipesActivity extends AppCompatActivity {
 
     private RecyclerView category_RECYC_recipes;
 
@@ -63,11 +63,11 @@ public class MyCategoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_category);
+        setContentView(R.layout.activity_my_all_recipes);
 
         if (getIntent().getBundleExtra("Bundle") != null){
             this.bundle = getIntent().getBundleExtra("Bundle");
-            currentCategoryName= bundle.getString("currentCategoryName");
+            this.currentCategoryName= bundle.getString("currentCategoryName");
         } else {
             this.bundle = new Bundle();
         }
@@ -87,9 +87,11 @@ public class MyCategoryActivity extends AppCompatActivity {
                 myRecipes = new ArrayList<>();
                 for (DataSnapshot child : snapshot.getChildren()) {
                     try {
-                        String name =   child.child("name").getValue(String.class);
+                        String name = child.child("name").getValue(String.class);
+//                        String methodSteps = child.child("methods_steps").getValue(String.class);
                         MyRecipe tempRecipe = new MyRecipe();
                         tempRecipe.setName(name);;
+//                        tempRecipe.setMethodSteps(methodSteps);;
                         myRecipes.add(tempRecipe);
                     } catch (Exception ex) {}
                 }
@@ -112,7 +114,7 @@ public class MyCategoryActivity extends AppCompatActivity {
             @Override
             public void clicked(MyRecipe recipe, int position) {
                 currentRecipeName = recipe.getName();
-                Intent intent = new Intent(MyCategoryActivity.this,MyRecipeActivity.class);
+                Intent intent = new Intent(MyAllRecipesActivity.this,MyRecipeActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("currentRecipeName", currentRecipeName);
                 //todo check
@@ -148,17 +150,17 @@ public class MyCategoryActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.item1:
-                        Toast.makeText(MyCategoryActivity.this, "Profile", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MyAllRecipesActivity.this, "Profile", Toast.LENGTH_LONG).show();
                         break;
                     case R.id.item2:
                         AuthUI.getInstance()
-                                .signOut(MyCategoryActivity.this)
+                                .signOut(MyAllRecipesActivity.this)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @SuppressLint("RestrictedApi")
                                     public void onComplete(@NonNull Task<Void> task) {
                                         // user is now signed out
-                                        startActivity(new Intent(MyCategoryActivity.this, Activity_Login.class));
-                                        Toast.makeText(MyCategoryActivity.this, "Log Out", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(MyAllRecipesActivity.this, Activity_Login.class));
+                                        Toast.makeText(MyAllRecipesActivity.this, "Log Out", Toast.LENGTH_SHORT).show();
                                         finish();
                                     }
                                 });
@@ -194,7 +196,7 @@ public class MyCategoryActivity extends AppCompatActivity {
         toolbar_FAB_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MyCategoryActivity.this,Activity_ingredient.class);
+                Intent intent = new Intent(MyAllRecipesActivity.this,Activity_create_recipe.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("currentCategoryName", currentCategoryName);
                 bundle.putString("currentRecipeName", currentRecipeName);

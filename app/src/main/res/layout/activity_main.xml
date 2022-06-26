@@ -15,7 +15,6 @@
             android:background="#BDD3EF"
             android:fitsSystemWindows="true">
 
-
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,23 +44,17 @@
                 android:orientation="vertical"
                 android:padding="5dp">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/main_RECYC_categories"
-                    android:layout_width="match_parent"
-                    android:layout_height="600dp"
-                    android:layout_margin="5dp"
-                    android:paddingTop="60dp" />
+
             </LinearLayout>
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/main_FRG_container"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_RECYC_categories"
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="0dp"
-                android:clipToPadding="false"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_margin="5dp"
+                android:paddingTop="60dp" />
 
-                />
 
 
             <RelativeLayout
@@ -103,13 +96,6 @@
                         app:iconTint="@color/white" />
 
 
-<!--                    <com.google.android.material.imageview.ShapeableImageView-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="45dp"-->
-<!--                        android:layout_gravity="top"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:layout_weight="3"-->
-<!--                        android:src="@drawable/ic_baseline_chat" />-->
 
                     <View
                         android:layout_width="0dp"
@@ -126,62 +112,6 @@
                     android:orientation="vertical"
                     android:padding="5dp">
 
-<!--                    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton-->
-<!--                        android:id="@+id/message_BTN_going_out"-->
-<!--                        android:layout_width="350dp"-->
-<!--                        android:layout_height="0dp"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:backgroundTint="@color/white"-->
-<!--                        android:elevation="5dp"-->
-<!--                        android:fontFamily="@font/untitled"-->
-<!--                        android:insetLeft="5dp"-->
-<!--                        android:insetTop="5dp"-->
-<!--                        android:insetRight="5dp"-->
-<!--                        android:insetBottom="5dp"-->
-<!--                        android:text="@string/going_shopping"-->
-<!--                        android:textAlignment="center"-->
-<!--                        android:textSize="40sp"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:elevation="5dp" />-->
-
-<!--                    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton-->
-<!--                        android:id="@+id/message_BTN_list_update"-->
-<!--                        android:layout_width="350dp"-->
-<!--                        android:layout_height="0dp"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:backgroundTint="@color/white"-->
-<!--                        android:elevation="5dp"-->
-<!--                        android:fontFamily="@font/untitled"-->
-<!--                        android:insetLeft="5dp"-->
-<!--                        android:insetTop="5dp"-->
-<!--                        android:insetRight="5dp"-->
-<!--                        android:insetBottom="5dp"-->
-<!--                        android:text="@string/list_updated"-->
-<!--                        android:textAlignment="center"-->
-<!--                        android:textSize="40sp"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:elevation="5dp" />-->
-
-<!--                    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton-->
-<!--                        android:id="@+id/message_BTN_list_close"-->
-<!--                        android:layout_width="350dp"-->
-<!--                        android:layout_height="0dp"-->
-<!--                        android:layout_marginTop="20dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:backgroundTint="@color/white"-->
-<!--                        android:elevation="5dp"-->
-<!--                        android:fontFamily="@font/untitled"-->
-<!--                        android:insetLeft="5dp"-->
-<!--                        android:insetTop="5dp"-->
-<!--                        android:insetRight="5dp"-->
-<!--                        android:insetBottom="5dp"-->
-<!--                        android:text="@string/shopping_done"-->
-<!--                        android:textAlignment="center"-->
-<!--                        android:textSize="40sp"-->
-<!--                        android:textStyle="bold"-->
-<!--                        app:elevation="5dp" />-->
 
 
                 </LinearLayout>

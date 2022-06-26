@@ -7,14 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.foodelicious.Firebase.MyDataManager;
-import com.example.foodelicious.Objects.MyCategory;
 import com.example.foodelicious.Objects.MyRecipe;
 import com.example.foodelicious.R;
-import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.imageview.ShapeableImageView;
-import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -44,9 +39,8 @@ public class Activity_create_recipe extends AppCompatActivity {
         } else {
             this.bundle = new Bundle();
         }
-
-
         findViews();
+//        configEditFields();
         initButtons();
     }
 
@@ -54,6 +48,12 @@ public class Activity_create_recipe extends AppCompatActivity {
         form_EDT_name = findViewById(R.id.form_EDT_name);
         panel_BTN_create = findViewById(R.id.panel_BTN_create);
     }
+
+//    private void configEditFields() {
+//
+//        InputFilter noteLengthFilter = new InputFilter.LengthFilter(500);
+//        editItem_EDT_notes.getEditText().setFilters(new InputFilter[]{noteLengthFilter});
+//    }
 
     private void initButtons() {
         panel_BTN_create.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +63,7 @@ public class Activity_create_recipe extends AppCompatActivity {
                 tempRecipe.setName(form_EDT_name.getEditText().getText().toString());
                 DatabaseReference myRef = realtimeDB.getReference(KEY_USERS).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("categories").child(currentCategoryName).child("recipes");
                 myRef.child(tempRecipe.getName()).child("name").setValue(tempRecipe.getName());
-                startActivity(new Intent(Activity_create_recipe.this, MyCategoryActivity.class));
+                startActivity(new Intent(Activity_create_recipe.this, MyAllRecipesActivity.class));
                 finish();
             }
         });

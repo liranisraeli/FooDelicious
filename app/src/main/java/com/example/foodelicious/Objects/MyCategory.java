@@ -11,7 +11,6 @@ public class MyCategory {
     private String image_cover = "https://firebasestorage.googleapis.com/v0/b/foodelicious-8c630.appspot.com/o/default_pictures%2Fimg_default_category.png?alt=media&token=b9144ce6-36dc-47d8-88ff-4fc0d1dc2db3";
     private ArrayList<String> itemsUid;
     private String creatorUid = "";
-    private ArrayList<String> sharedWithUidsList;
 
     public MyCategory() { }
 

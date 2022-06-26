@@ -3,14 +3,13 @@ package com.example.foodelicious.Activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.InputFilter;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -75,8 +75,6 @@ public class MyRecipeActivity extends AppCompatActivity {
             this.bundle = getIntent().getBundleExtra("Bundle");
             currentCategoryName = bundle.getString("currentCategoryName");
             currentRecipeName = bundle.getString("currentRecipeName");
-//            Log.d("pptt", currentRecipeName);
-//            Log.d("ppcc", currentCategoryName);
         } else {
             this.bundle = new Bundle();
         }
@@ -86,9 +84,8 @@ public class MyRecipeActivity extends AppCompatActivity {
         recipe_RECYC_ingredients.setHasFixedSize(true);
         recipe_RECYC_ingredients.setAdapter(ingredientAdapter);
 
+
         initButtons();
-//        Log.d("ppp", currentCategoryName);
-//        Log.d("sshh", currentRecipeName);
         updateUI();
     }
 
@@ -102,12 +99,9 @@ public class MyRecipeActivity extends AppCompatActivity {
                 myIngredients = new ArrayList<>();
                 for (DataSnapshot child : snapshot.getChildren()) {
                     try {
-
-                        // String image = child.child("image").getValue(String.class);
-                        String name =   child.child("name").getValue(String.class);
+                        String name = child.child("name").getValue(String.class);
                         Ingredient tempIngredient = new Ingredient();
                         tempIngredient.setName(name);
-                        //tempItem.setImage(image);
                         myIngredients.add(tempIngredient);
                     } catch (Exception ex) {}
                 }
@@ -130,7 +124,7 @@ public class MyRecipeActivity extends AppCompatActivity {
             public void clicked(Ingredient ingredient, int position) {
                 currentIngredientName = ingredient.getName();
                 //todo check
-                Intent intent = new Intent(MyRecipeActivity.this, Activity_ingredient.class);
+                Intent intent = new Intent(MyRecipeActivity.this, MyRecipeActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("currentIngredientName", currentIngredientName);
                 intent.putExtra("Bundle", bundle);
@@ -190,11 +184,9 @@ public class MyRecipeActivity extends AppCompatActivity {
         toolbar_FAB_add = findViewById(R.id.toolbar_FAB_add);
 
         recipe_RECYC_ingredients = findViewById(R.id.recipe_RECYC_ingredients);
-
     }
 
     private void initButtons() {
-
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -246,8 +238,8 @@ public class MyRecipeActivity extends AppCompatActivity {
         toolbar_FAB_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intent = new Intent(MyRecipeActivity.this,Activity_ingredient.class);
+                //todo check this
+                Intent intent = new Intent(MyRecipeActivity.this,MyRecipeActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("currentRecipeName",currentIngredientName);
                 intent.putExtra("Bundle",bundle);

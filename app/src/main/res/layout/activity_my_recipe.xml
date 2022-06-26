@@ -2,7 +2,6 @@
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 >
@@ -29,7 +28,7 @@
                     app:menu="@menu/top_app_bar_menu"
                     app:navigationIcon="@drawable/ic_arrow_back"
                     app:navigationIconTint="@color/black"
-                    app:title="My ingredient"
+                    app:title="Ingredients"
                     app:titleCentered="true"
                     android:fontFamily="@font/font_buttons"
                     app:titleTextColor="@color/black"
@@ -44,6 +43,7 @@
                 android:orientation="vertical"
                 android:padding="5dp">
 
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recipe_RECYC_ingredients"
                     android:layout_width="match_parent"
@@ -51,6 +51,8 @@
                     android:layout_margin="5dp"
                     android:paddingTop="60dp" />
             </LinearLayout>
+
+
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/main_FRG_container"
@@ -61,6 +63,52 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
                 />
+
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/relativeLayout"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_margin="70dp"-->
+<!--                android:layout_height="wrap_content">-->
+
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/editItem_EDT_notes"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="Method Steps"-->
+<!--                    android:paddingBottom="10dp"-->
+<!--                    app:counterEnabled="true"-->
+<!--                    app:counterMaxLength="500">-->
+
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/font_buttons"-->
+<!--                        android:inputType="textAutoCorrect"-->
+<!--                        android:maxLines="3"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+<!--            </RelativeLayout>-->
+
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/createItem_BTN_create"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="90dp"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                android:paddingStart="90dp"-->
+<!--                android:backgroundTint="#000000"-->
+<!--                android:elevation="8dp"-->
+<!--                android:fontFamily="@font/font_buttons"-->
+<!--                android:text="Save Methods"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:icon="@drawable/ic_baseline_save"-->
+<!--                app:strokeColor="@color/cardview_shadow_start_color"-->
+<!--                app:strokeWidth="2dp" />-->
 
 
             <RelativeLayout
@@ -89,26 +137,6 @@
                     android:fadingEdge="horizontal"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/panel_BTN_chat_back"
-                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="top"
-                        android:layout_weight="1"
-                        android:backgroundTint="#00FFFFFF"
-                        app:icon="@drawable/ic_close"
-                        app:iconSize="40dp"
-                        app:iconTint="@color/white" />
-
-
-                    <!--                    <com.google.android.material.imageview.ShapeableImageView-->
-                    <!--                        android:layout_width="0dp"-->
-                    <!--                        android:layout_height="45dp"-->
-                    <!--                        android:layout_gravity="top"-->
-                    <!--                        android:layout_marginTop="10dp"-->
-                    <!--                        android:layout_weight="3"-->
-                    <!--                        android:src="@drawable/ic_baseline_chat" />-->
 
                     <View
                         android:layout_width="0dp"
@@ -124,64 +152,6 @@
                     android:layout_marginTop="20dp"
                     android:orientation="vertical"
                     android:padding="5dp">
-
-                    <!--                    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton-->
-                    <!--                        android:id="@+id/message_BTN_going_out"-->
-                    <!--                        android:layout_width="350dp"-->
-                    <!--                        android:layout_height="0dp"-->
-                    <!--                        android:layout_marginTop="20dp"-->
-                    <!--                        android:layout_weight="1"-->
-                    <!--                        android:backgroundTint="@color/white"-->
-                    <!--                        android:elevation="5dp"-->
-                    <!--                        android:fontFamily="@font/untitled"-->
-                    <!--                        android:insetLeft="5dp"-->
-                    <!--                        android:insetTop="5dp"-->
-                    <!--                        android:insetRight="5dp"-->
-                    <!--                        android:insetBottom="5dp"-->
-                    <!--                        android:text="@string/going_shopping"-->
-                    <!--                        android:textAlignment="center"-->
-                    <!--                        android:textSize="40sp"-->
-                    <!--                        android:textStyle="bold"-->
-                    <!--                        app:elevation="5dp" />-->
-
-                    <!--                    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton-->
-                    <!--                        android:id="@+id/message_BTN_list_update"-->
-                    <!--                        android:layout_width="350dp"-->
-                    <!--                        android:layout_height="0dp"-->
-                    <!--                        android:layout_marginTop="20dp"-->
-                    <!--                        android:layout_weight="1"-->
-                    <!--                        android:backgroundTint="@color/white"-->
-                    <!--                        android:elevation="5dp"-->
-                    <!--                        android:fontFamily="@font/untitled"-->
-                    <!--                        android:insetLeft="5dp"-->
-                    <!--                        android:insetTop="5dp"-->
-                    <!--                        android:insetRight="5dp"-->
-                    <!--                        android:insetBottom="5dp"-->
-                    <!--                        android:text="@string/list_updated"-->
-                    <!--                        android:textAlignment="center"-->
-                    <!--                        android:textSize="40sp"-->
-                    <!--                        android:textStyle="bold"-->
-                    <!--                        app:elevation="5dp" />-->
-
-                    <!--                    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton-->
-                    <!--                        android:id="@+id/message_BTN_list_close"-->
-                    <!--                        android:layout_width="350dp"-->
-                    <!--                        android:layout_height="0dp"-->
-                    <!--                        android:layout_marginTop="20dp"-->
-                    <!--                        android:layout_weight="1"-->
-                    <!--                        android:backgroundTint="@color/white"-->
-                    <!--                        android:elevation="5dp"-->
-                    <!--                        android:fontFamily="@font/untitled"-->
-                    <!--                        android:insetLeft="5dp"-->
-                    <!--                        android:insetTop="5dp"-->
-                    <!--                        android:insetRight="5dp"-->
-                    <!--                        android:insetBottom="5dp"-->
-                    <!--                        android:text="@string/shopping_done"-->
-                    <!--                        android:textAlignment="center"-->
-                    <!--                        android:textSize="40sp"-->
-                    <!--                        android:textStyle="bold"-->
-                    <!--                        app:elevation="5dp" />-->
-
 
                 </LinearLayout>
 
