@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.foodelicious.CallBacks.CallBackClick;
 import com.example.foodelicious.Objects.MyRecipe;
 import com.example.foodelicious.R;
 import com.google.android.material.textview.MaterialTextView;
@@ -17,18 +18,16 @@ import java.util.ArrayList;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    public interface RecipeListener {
-        void clicked(MyRecipe recipe, int position);
-    }
+
 
     private Activity activity;
     private ArrayList<MyRecipe> recipes = new ArrayList<>();
-    private RecipeAdapter.RecipeListener recipeListener;
+    private CallBackClick callBackRecipeClick;
 
-    public RecipeAdapter(Activity activity, ArrayList<MyRecipe> recipes, RecipeAdapter.RecipeListener recipeListener){
+    public RecipeAdapter(Activity activity, ArrayList<MyRecipe> recipes,  CallBackClick callBackRecipeClick){
         this.activity = activity;
         this.recipes = recipes;
-        this.recipeListener = recipeListener;
+        this.callBackRecipeClick = callBackRecipeClick;
     }
 
     @Override
@@ -79,9 +78,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (recipeListener != null) {
-                        recipeListener.clicked(getRecipe(getAdapterPosition()), getAdapterPosition());
-                    }
+
                 }
             });
         }

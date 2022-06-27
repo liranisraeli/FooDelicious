@@ -2,5 +2,47 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:id="@+id/profile"
+        android:title="Profile"
+        android:icon="@drawable/ic_person"
+        android:iconTint="@color/black"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/allRecipes"
+        android:title="All Recipes"
+        android:icon="@drawable/ic_recipe"
+        android:iconTint="@color/black"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/holder"
+        android:title=""
+        app:showAsAction="ifRoom"
+        android:enabled="false"
+        />
+
+
+
+    <item
+        android:id="@+id/allCategories"
+        android:title="Categories"
+        android:icon="@drawable/ic_categories"
+        android:iconTint="@color/black"
+        app:showAsAction="ifRoom"
+        />
+
+
+    <item
+        android:id="@+id/favorites"
+        android:title="Favorites"
+        android:icon="@drawable/ic_favorite"
+        android:iconTint="@color/black"
+        app:showAsAction="ifRoom"
+        />
+
 
 </menu>

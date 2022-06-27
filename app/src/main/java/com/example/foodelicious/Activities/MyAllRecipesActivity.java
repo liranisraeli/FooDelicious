@@ -5,21 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.foodelicious.Adapters.RecipeAdapter;
 import com.example.foodelicious.Firebase.MyDataManager;
 import com.example.foodelicious.Objects.MyRecipe;
 import com.example.foodelicious.R;
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
@@ -37,7 +31,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyAllRecipesActivity extends AppCompatActivity {
 
-    private RecyclerView category_RECYC_recipes;
+
 
     //Firebase
     private final MyDataManager dataManager = MyDataManager.getInstance();
@@ -63,7 +57,7 @@ public class MyAllRecipesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_all_recipes);
+//        setContentView(R.layout.activity_my_all_recipes);
 
         if (getIntent().getBundleExtra("Bundle") != null){
             this.bundle = getIntent().getBundleExtra("Bundle");
@@ -110,23 +104,23 @@ public class MyAllRecipesActivity extends AppCompatActivity {
 
 
     private void initAdapter() {
-        recipeAdapter = new RecipeAdapter(this, myRecipes, new RecipeAdapter.RecipeListener() {
-            @Override
-            public void clicked(MyRecipe recipe, int position) {
-                currentRecipeName = recipe.getName();
-                Intent intent = new Intent(MyAllRecipesActivity.this,MyRecipeActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("currentRecipeName", currentRecipeName);
-                //todo check
-                bundle.putString("currentCategoryName", currentCategoryName);
-                Log.d("ppc", currentRecipeName + " 3");
-
-                intent.putExtra("Bundle",bundle);
-                startActivity(intent);
-            }
-        });
-        category_RECYC_recipes.setLayoutManager(new GridLayoutManager(this,1));
-        category_RECYC_recipes.setAdapter(recipeAdapter);
+//        recipeAdapter = new RecipeAdapter(this, myRecipes, new RecipeAdapter.RecipeListener() {
+//            @Override
+//            public void clicked(MyRecipe recipe, int position) {
+//                currentRecipeName = recipe.getName();
+//                Intent intent = new Intent(MyAllRecipesActivity.this,MyRecipeActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("currentRecipeName", currentRecipeName);
+//                //todo check
+//                bundle.putString("currentCategoryName", currentCategoryName);
+//                Log.d("ppc", currentRecipeName + " 3");
+//
+//                intent.putExtra("Bundle",bundle);
+//                startActivity(intent);
+//            }
+//        });
+//        category_RECYC.setLayoutManager(new GridLayoutManager(this,1));
+//        category_RECYC.setAdapter(recipeAdapter);
     }
 
 
@@ -140,36 +134,12 @@ public class MyAllRecipesActivity extends AppCompatActivity {
         header_BAR_progress = header.findViewById(R.id.header_BAR_progress);
         toolbar_FAB_add = findViewById(R.id.toolbar_FAB_add);
 
-        category_RECYC_recipes = findViewById(R.id.category_RECYC_recipes);
+//        category_RECYC_recipes = findViewById(R.id.category_RECYC_recipes);
     }
 
     private void initButtons() {
 
-        nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.item1:
-                        Toast.makeText(MyAllRecipesActivity.this, "Profile", Toast.LENGTH_LONG).show();
-                        break;
-                    case R.id.item2:
-                        AuthUI.getInstance()
-                                .signOut(MyAllRecipesActivity.this)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @SuppressLint("RestrictedApi")
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        // user is now signed out
-                                        startActivity(new Intent(MyAllRecipesActivity.this, Activity_Login.class));
-                                        Toast.makeText(MyAllRecipesActivity.this, "Log Out", Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    }
-                                });
-                        break;
-                }
-                return true;
-            }
 
-        });
 //
 //        panel_AppBar_bottom.setNavigationOnClickListener(new View.OnClickListener() {
 //            @RequiresApi(api = Build.VERSION_CODES.M)

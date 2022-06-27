@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +25,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.foodelicious.Adapters.CategoriesAdapter;
 import com.example.foodelicious.Firebase.MyDataManager;
+import com.example.foodelicious.Fragments.CategoriesFragment;
+import com.example.foodelicious.Fragments.FavoritesFragment;
+import com.example.foodelicious.Fragments.ProfileFragment;
+import com.example.foodelicious.Fragments.RecipesFragment;
 import com.example.foodelicious.Objects.MyCategory;
 import com.example.foodelicious.Objects.MyUser;
 import com.example.foodelicious.R;
@@ -33,7 +39,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textview.MaterialTextView;
@@ -53,27 +61,24 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<MyCategory> myCategories;
-    CategoriesAdapter categoriesAdapter;
 
-    private RecyclerView main_RECYC_categories;
+
     private Bundle bundle;
-    private String currentCategoryName;
+
 
     private final MyDataManager dataManager = MyDataManager.getInstance();
     private final MyUser currentUser = dataManager.getCurrentUser();
     private final FirebaseDatabase realtimeDB = dataManager.getRealTimeDB();
 
-    private DrawerLayout drawer_layout;
+    //bottom
     private FloatingActionButton toolbar_FAB_add;
+    private BottomNavigationView panel_BottomNavigationView;
     private BottomAppBar panel_AppBar_bottom;
-    private MaterialToolbar panel_Toolbar_Top;
 
-    //fragment
-    private FragmentContainerView main_FRG_container;
-    private FragmentManager fragmentManager;
 
     //nav
+    private DrawerLayout drawer_layout;
+    private MaterialToolbar panel_Toolbar_Top;
     private NavigationView nav_view;
     private View header;
     private FloatingActionButton navigation_header_container_FAB_profile_pic;
@@ -82,6 +87,14 @@ public class MainActivity extends AppCompatActivity {
     private CircularProgressIndicator header_BAR_progress;
     public static final String KEY_PROFILE_PICTURES = "profile_pictures";
 
+    //Fragment
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+    public static final int Profile = 0,All_Recipes= 1, Categories =2, Favorites=3;
+    private final int SIZE = 4;
+    private Fragment[] panel_fragments;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,32 +102,14 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(panel_AppBar_bottom);
         setSupportActionBar(panel_Toolbar_Top);
 
-        buildArrays();
+
         findViews();
-        initAdapter();
+        setFragments();
+        panel_Toolbar_Top.setTitle("Categories");
+        replaceFragments(panel_fragments[Categories]);
+//        initAdapter();
         initButtons();
         updateUI();
-    }
-    private void buildArrays() {
-        myCategories = new ArrayList<MyCategory>();
-        MyCategory categoryFish = new MyCategory();
-        categoryFish.setTitle("Fish").setImage_cover("https://firebasestorage.googleapis.com/v0/b/foodelicious-8c630.appspot.com/o/default_pictures%2Fic_fish.jpg?alt=media&token=aa16792a-5904-4bc6-a0ec-18b58f61e755");
-        myCategories.add(categoryFish);
-        MyCategory categoryMeat = new MyCategory();
-        categoryMeat.setTitle("Meat").setImage_cover("https://firebasestorage.googleapis.com/v0/b/foodelicious-8c630.appspot.com/o/default_pictures%2Fic_meat.jpg?alt=media&token=95281e1e-40ff-45be-8579-94f1f1fd71ee");
-        myCategories.add(categoryMeat);
-        MyCategory categoryPastas = new MyCategory();
-        categoryPastas.setTitle("Pastas").setImage_cover("https://firebasestorage.googleapis.com/v0/b/foodelicious-8c630.appspot.com/o/default_pictures%2Fic_pastas.jpg?alt=media&token=c7cb02c2-f6cb-4da1-be82-dddbfbbdf0ca");
-        myCategories.add(categoryPastas);
-        MyCategory categoryPizzas = new MyCategory();
-        categoryPizzas.setTitle("Pizzas").setImage_cover("https://firebasestorage.googleapis.com/v0/b/foodelicious-8c630.appspot.com/o/default_pictures%2Fic_pizza.jpg?alt=media&token=c87bd811-480c-4e90-8c63-6726a78fc865");
-        myCategories.add(categoryPizzas);
-        MyCategory categoryPies = new MyCategory();
-        categoryPies.setTitle("Pies").setImage_cover("https://firebasestorage.googleapis.com/v0/b/foodelicious-8c630.appspot.com/o/default_pictures%2Fic_pie.jpg?alt=media&token=6a3e1a30-b100-4a2b-bc87-1d835fa50e8a");
-        myCategories.add(categoryPies);
-        MyCategory categoryDesserts = new MyCategory();
-        categoryDesserts.setTitle("Desserts").setImage_cover("https://firebasestorage.googleapis.com/v0/b/foodelicious-8c630.appspot.com/o/default_pictures%2Fic_desserts.jpg?alt=media&token=333066e1-13dc-48fb-b243-ce7ddf1269f1");
-        myCategories.add(categoryDesserts);
     }
 
     private void findViews() {
@@ -122,10 +117,8 @@ public class MainActivity extends AppCompatActivity {
         panel_Toolbar_Top = findViewById(R.id.panel_Toolbar_Top);
         panel_AppBar_bottom = findViewById(R.id.panel_AppBar_bottom);
         toolbar_FAB_add = findViewById(R.id.toolbar_FAB_add);
-
-        main_RECYC_categories = findViewById(R.id.main_RECYC_categories);
-
-        main_FRG_container = findViewById(R.id.main_FRG_container);
+        panel_BottomNavigationView = findViewById(R.id.panel_BottomNavigationView);
+        panel_BottomNavigationView.setBackground(null);
 
         //nav
         nav_view = findViewById(R.id.nav_view);
@@ -136,15 +129,22 @@ public class MainActivity extends AppCompatActivity {
         header_BAR_progress =header.findViewById(R.id.header_BAR_progress);
     }
 
+
+    private void setFragments() {
+        panel_fragments = new Fragment[SIZE];
+        panel_fragments[Profile] = new ProfileFragment().setActivity(this);
+        panel_fragments[All_Recipes] = new RecipesFragment().setActivity(this);
+        panel_fragments[Categories] = new CategoriesFragment().setActivity(this);
+        panel_fragments[Favorites] = new FavoritesFragment().setActivity(this);
+
+    }
+
     private void initButtons(){
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.item1:
-                        Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_LONG).show();
-                        break;
-                    case R.id.item2:
+                    case R.id.logOut:
                         AuthUI.getInstance()
                                 .signOut(MainActivity.this)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -177,6 +177,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        panel_BottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.profile:
+                        panel_Toolbar_Top.setTitle("Profile");
+                        replaceFragments(panel_fragments[Profile]);
+                        break;
+                    case R.id.allRecipes:
+                        panel_Toolbar_Top.setTitle("All Recipes");
+                        dataManager.setPath("main");
+                        replaceFragments(panel_fragments[All_Recipes]);
+                        break;
+                    case R.id.allCategories:
+                        panel_Toolbar_Top.setTitle("Categories");
+                        replaceFragments(panel_fragments[Categories]);
+                        break;
+                    case R.id.favorites:
+                        panel_Toolbar_Top.setTitle("Favorites");
+                        replaceFragments(panel_fragments[Favorites]);
+                        break;
+                }
+                return true;
+            }
+        });
+
+
+        toolbar_FAB_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,Activity_create_recipe.class));
+
+            }
+        });
+
+
         //todo check
         panel_Toolbar_Top.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,20 +223,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        panel_AppBar_bottom.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawer_layout.openDrawer(drawer_layout.getForegroundGravity());
-            }
-        });
 
-        toolbar_FAB_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,Activity_create_category.class));
 
-            }
-        });
+
+
+
 
     }
 
@@ -263,25 +290,6 @@ public class MainActivity extends AppCompatActivity {
 //        });
     }
 
-    private void initAdapter() {
-        categoriesAdapter = new CategoriesAdapter(this, myCategories, new CategoriesAdapter.CategoryListener() {
-            @Override
-            public void clicked(MyCategory category, int position) {
-//                currentCategoryName
-                currentCategoryName = category.getTitle();
-                Intent intent = new Intent(MainActivity.this, MyAllRecipesActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("currentCategoryName",currentCategoryName);
-                intent.putExtra("Bundle",bundle);
-                Log.d("pttt",category.toString());
-                startActivity(intent);
-
-
-            }
-        });
-        main_RECYC_categories.setLayoutManager(new GridLayoutManager(this,2));
-        main_RECYC_categories.setAdapter(categoriesAdapter);
-    }
 
 
 
@@ -352,7 +360,12 @@ public class MainActivity extends AppCompatActivity {
         // [END upload_memory]
     }
 
-
+    private void replaceFragments(Fragment fragment){
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.panel_Fragment, fragment, null);
+        fragmentTransaction.commit();
+    }
 
 
 

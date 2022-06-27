@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.bumptech.glide.Glide;
+import com.example.foodelicious.CallBacks.CallBackClick;
+import com.example.foodelicious.Firebase.MyDataManager;
 import com.example.foodelicious.Objects.MyCategory;
+import com.example.foodelicious.Objects.MyRecipe;
 import com.example.foodelicious.R;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -18,19 +21,21 @@ import java.util.ArrayList;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+
     public interface CategoryListener {
         void clicked(MyCategory category, int position);
     }
 
+    private final MyDataManager dataManager = MyDataManager.getInstance();
     private Activity activity;
     private ArrayList<MyCategory> categories = new ArrayList<>();
-    private CategoryListener categorylistener;
+    private CallBackClick callBackCategoryClick;
+    private MyCategory category;
 
-    public CategoriesAdapter(Activity activity, ArrayList<MyCategory> categories, CategoryListener categorylistener){
+    public CategoriesAdapter(Activity activity, ArrayList<MyCategory> categories, CallBackClick callBackCategoryClick){
         this.activity = activity;
         this.categories = categories;
-        this.categorylistener = categorylistener;
-
+        this.callBackCategoryClick = callBackCategoryClick;
     }
 
     @Override
@@ -44,13 +49,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
 
         final CategoryHolder holder = (CategoryHolder) viewHolder;
-        MyCategory category = getItem(position);
+        category = getItem(position);
 
         holder.list_LBL_title.setText(category.getTitle());
-//        if(list.getItems_Counter() == 0)
-//            holder.list_LBL_amount.setText("There are no items yet");
-//        else
-//            holder.list_LBL_amount.setText("" + list.getItems_Counter());
 
         Glide
                 .with(activity)
@@ -81,8 +82,15 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (categorylistener != null) {
-                        categorylistener.clicked(getItem(getAdapterPosition()), getAdapterPosition());
+                    if (callBackCategoryClick != null) {
+                        ArrayList<MyRecipe> recipes=new ArrayList<MyRecipe>();
+                        for(MyRecipe recipe: dataManager.getMyRecipes()){
+                            if(recipe.getCategory().equals(category.getTitle())){
+                                recipes.add(recipe);
+                            }
+                        }
+                        dataManager.setFilteredCurrentRecipes(recipes);
+                        callBackCategoryClick.onClicked();
                     }
                 }
             });

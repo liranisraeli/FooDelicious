@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.ProfileFragment">
+
+
+    <LinearLayout
+        android:id="@+id/Panel_ProfilePage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/Profile_TopProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/Profile_IMG_User"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:src="@drawable/ic_profile_pic"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000000"
+                android:layout_marginTop="10dp"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/Profile_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_person"
+                app:tint="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Name"
+                android:textColor="@color/black"
+                android:fontFamily="@font/font_buttons"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginStart="5dp"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/Profile_LBL_UserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:fontFamily="@font/font_buttons"
+                android:textSize="18dp"
+                android:textColor="@color/black"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/black"
+            />
+
+
+
+        <LinearLayout
+            android:id="@+id/Profile_PhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_phone"
+                app:tint="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone Number"
+                android:textColor="@color/black"
+                android:fontFamily="@font/font_buttons"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginStart="5dp"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/Profile_LBL_UserPhoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_marginStart="26dp"
+                android:fontFamily="@font/font_buttons"
+                android:textSize="18dp"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/black"
+            />
+
+    </LinearLayout>
+
+</FrameLayout>

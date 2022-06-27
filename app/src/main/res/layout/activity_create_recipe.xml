@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/createList_CARD_main"
+        android:layout_above="@+id/createCategory_CARD_main"
         android:layout_marginBottom="30dp"
 
 
@@ -22,7 +22,7 @@
         android:textStyle="bold" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/createList_CARD_main"
+        android:id="@+id/createCategory_CARD_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -32,71 +32,29 @@
         app:cardElevation="8dp">
 
         <LinearLayout
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="450dp"
             android:orientation="vertical">
 
-
-            <FrameLayout
-                android:id="@+id/profile_FRM_nav"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="20dp"
-                android:orientation="vertical">
-
-
-<!--                <com.google.android.material.progressindicator.CircularProgressIndicator-->
-<!--                    android:id="@+id/createCat_BAR_progress"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:elevation="1dp"-->
-<!--                    android:indeterminate="true"-->
-<!--                    android:visibility="invisible"-->
-<!--                    app:indicatorColor="#75B3FF" />-->
-
-
-<!--                <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                    android:id="@+id/createCat_FAB_profile_pic"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="start|bottom"-->
-<!--                    android:backgroundTint="#000000"-->
-<!--                    app:borderWidth="2dp"-->
-<!--                    app:elevation="8dp"-->
-<!--                    app:fabCustomSize="40dp"-->
-<!--                    app:srcCompat="@drawable/ic_baseline_edit"-->
-<!--                    app:tint="@color/white"-->
-<!--                    app:useCompatPadding="false" />-->
-
-
-<!--                <com.google.android.material.imageview.ShapeableImageView-->
-<!--                    android:id="@+id/createCat_IMG_user"-->
-<!--                    android:layout_width="270dp"-->
-<!--                    android:layout_height="170dp"-->
-<!--                    android:layout_gravity="center_horizontal"-->
-<!--                    android:clickable="true"-->
-<!--                    android:focusable="true"-->
-<!--                    android:scaleType="centerCrop"-->
-<!--                    android:src="@drawable/img_default_category"-->
-<!--                    app:civ_border_color="#B2000000"-->
-<!--                    app:civ_border_width="3dp" />-->
-            </FrameLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/form_EDT_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:hint="Insert recipe name"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:hint="Recipe Name"
                 android:textColorHint="@color/black"
                 app:boxBackgroundColor="#ECE8E8"
                 app:boxBackgroundMode="filled"
                 app:boxStrokeColor="#75B3FF"
-                app:errorEnabled="true">
+                app:errorEnabled="false"
+                app:startIconDrawable="@drawable/ic_food"
+                app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/text_EDT_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/font_buttons"
@@ -104,58 +62,82 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
-
-                <RelativeLayout
-                    android:id="@+id/relativeLayout"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="70dp">
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/editItem_EDT_notes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Method Steps"
-                        android:paddingBottom="10dp"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="500">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="71dp"
-                            android:fontFamily="@font/font_buttons"
-                            android:inputType="textAutoCorrect"
-                            android:maxLines="3"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-                </RelativeLayout>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/panel_BTN_create"
-                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="20dp"
-                android:backgroundTint="#000000"
-                android:elevation="8dp"
-                android:fontFamily="@font/font_buttons"
-                android:text="Add"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:icon="@drawable/ic_baseline_save"
-                app:strokeColor="#000000"
-                app:strokeWidth="2dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/createRecipe_TIN_category"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:outlineAmbientShadowColor="@color/black"
+                android:outlineSpotShadowColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="16sp"
+                app:boxBackgroundColor="#ECE8E8"
+                app:hintTextColor="@color/black"
+                app:startIconDrawable="@drawable/ic_categories"
+                app:startIconTint="@color/black">
+
+
+                <AutoCompleteTextView
+                    android:id="@+id/category_AutoCompleteTextViewCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/font_buttons"
+                    android:inputType="none"
+                    android:text="Category"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editItem_EDT_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Method Steps"
+                app:counterEnabled="true"
+                app:counterMaxLength="500"
+                app:startIconDrawable="@drawable/ic_edit"
+                app:startIconTint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/text_EDT_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:fontFamily="@font/font_buttons"
+                    android:inputType="textAutoCorrect"
+                    android:maxLines="3"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/panel_BTN_create"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_height="60dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#000000"
+        android:elevation="8dp"
+        android:fontFamily="@font/font_buttons"
+        android:text="Create"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:icon="@drawable/ic_add"
+        app:strokeColor="#000000"
+        app:strokeWidth="2dp" />
 
 </RelativeLayout>

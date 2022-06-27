@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.view.View;
 
 
+import com.example.foodelicious.Validator;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,7 +40,7 @@ public class Activity_SignUp extends AppCompatActivity {
     //Profile Picture
     private FloatingActionButton signup_FAB_profile_pic;
     private CircleImageView signup_IMG_user;
-    private String myDownloadUri;
+    private String myDownloadUri= "https://firebasestorage.googleapis.com/v0/b/superme-e69d5.appspot.com/o/images%2Fimg_profile_pic.JPG?alt=media&token=5970cec0-9663-4ddd-9395-ef2791ad938d";
 
     private TextInputLayout form_EDT_name;
     private MaterialButton panel_BTN_update;
@@ -48,6 +49,7 @@ public class Activity_SignUp extends AppCompatActivity {
     private final FirebaseDatabase realtimeDB = dataManager.getRealTimeDB();
 
     private MyUser tempMyUser;
+    Validator validatorName;
 
     //Storage keys
     public static final String KEY_PROFILE_PICTURES = "profile_pictures";
@@ -59,6 +61,7 @@ public class Activity_SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         findViews();
+        initValidator();
         initButtons();
     }
 
@@ -98,12 +101,11 @@ public class Activity_SignUp extends AppCompatActivity {
         panel_BTN_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userName = form_EDT_name.getEditText().getText().toString();
-                String userID = dataManager.getFirebaseAuth().getCurrentUser().getUid();
-                String userPhone = dataManager.getFirebaseAuth().getCurrentUser().getPhoneNumber();
-                tempMyUser = new MyUser(userID, userName, userPhone); //create user
-                if(myDownloadUri != null){
-                    tempMyUser.setProfileImgUrl(myDownloadUri);
+                if(validatorName.validateIt()){
+                    String userName = form_EDT_name.getEditText().getText().toString();
+                    String userID = dataManager.getFirebaseAuth().getCurrentUser().getUid();
+                    String userPhone = dataManager.getFirebaseAuth().getCurrentUser().getPhoneNumber();
+                    tempMyUser = new MyUser(userID, userName, userPhone,myDownloadUri); //create user
                 }
                 dataManager.setCurrentUser(tempMyUser);
                 storeUserInDB(tempMyUser);
@@ -111,6 +113,28 @@ public class Activity_SignUp extends AppCompatActivity {
 
 });
     }
+
+    private void initValidator() {
+        validatorName=Validator.Builder.make(form_EDT_name)
+                .addWatcher(new Validator.Watcher_StringEmpty("Name Cannot Be Empty"))
+                .addWatcher(new Validator.Watcher_String("Name Contains Only Characters"))
+                .build();
+
+    }
+
+    private void storeUserInDB(MyUser userToStore) {
+        //Store the user UID by Phone number
+        DatabaseReference myRef = realtimeDB.getReference("users").child(userToStore.getUid());
+        myRef.child("name").setValue(userToStore.getName());
+        myRef.child("phoneNumber").setValue(userToStore.getPhoneNumber());
+        myRef.child("profileImgUrl").setValue(userToStore.getProfileImgUrl());
+        startActivity(new Intent(Activity_SignUp.this, MainActivity.class));
+        finish();
+    }
+
+
+
+
     /**
      * Load ImagePicker activity to choose the category cover
      */
@@ -176,14 +200,6 @@ public class Activity_SignUp extends AppCompatActivity {
 
     }
 
-            private void storeUserInDB(MyUser userToStore) {
-                //Store the user UID by Phone number
-                DatabaseReference myRef = realtimeDB.getReference("users").child(userToStore.getUid());
-                myRef.child("name").setValue(userToStore.getName());
-                myRef.child("phoneNumber").setValue(userToStore.getPhoneNumber());
-                myRef.child("profileImgUrl").setValue(userToStore.getProfileImgUrl());
-                startActivity(new Intent(Activity_SignUp.this, MainActivity.class));
-                finish();
-            }
+
 
 }

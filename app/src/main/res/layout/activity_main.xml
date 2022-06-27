@@ -27,10 +27,9 @@
                     android:layout_height="?attr/actionBarSize"
                     android:background="#75B3FF"
                     app:layout_scrollFlags="scroll|enterAlways|snap"
-                    app:menu="@menu/top_app_bar_menu"
+                    app:menu="@menu/drawer_menu"
                     app:navigationIcon="@drawable/ic_arrow_back"
                     app:navigationIconTint="@color/black"
-                    app:title="My Categories"
                     app:titleCentered="true"
                     android:fontFamily="@font/font_buttons"
                     app:titleTextColor="@color/black"
@@ -39,98 +38,17 @@
 
 
             </com.google.android.material.appbar.AppBarLayout>
-            <LinearLayout
+
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/panel_Fragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="5dp">
+                android:layout_marginBottom="0dp"
+                android:clipToPadding="false"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                />
 
-
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/main_RECYC_categories"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:paddingTop="60dp" />
-
-
-
-            <RelativeLayout
-                android:id="@+id/panel_VIEW_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="15dp"
-                android:background="#ECE0C9"
-                android:clickable="true"
-                android:paddingBottom="100dp"
-                android:visibility="invisible">
-
-                <View
-                    android:id="@+id/spacer"
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="#94000000" />
-
-                <LinearLayout
-                    android:id="@+id/msg_LYT_top"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/spacer"
-                    android:background="#88DA9F27"
-                    android:fadingEdge="horizontal"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/panel_BTN_chat_back"
-                        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="top"
-                        android:layout_weight="1"
-                        android:backgroundTint="#00FFFFFF"
-                        app:icon="@drawable/ic_close"
-                        app:iconSize="40dp"
-                        app:iconTint="@color/white" />
-
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/msg_LYT_top"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:orientation="vertical"
-                    android:padding="5dp">
-
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-
-            <com.google.android.material.bottomappbar.BottomAppBar
-                android:id="@+id/panel_AppBar_bottom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@color/white"
-                android:backgroundTint="#75B3FF"
-                app:fabCradleMargin="10dp"
-                app:fabCradleRoundedCornerRadius="15dp"
-                app:layout_anchor="@+id/panel_VIEW_message"
-                app:layout_anchorGravity="bottom|center"
-                app:menu="@menu/bottom_app_bar_menu"
-                app:navigationIcon="@drawable/ic_person"
-                app:navigationIconTint="@color/black" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/toolbar_FAB_add"
@@ -140,8 +58,32 @@
                 android:src="@drawable/ic_plus"
                 app:borderWidth="0dp"
                 app:layout_anchor="@id/panel_AppBar_bottom"
-                app:maxImageSize="45dp"
+                android:layout_marginBottom="20dp"
+                app:maxImageSize="50dp"
                 app:tint="@color/black" />
+
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/panel_BottomNavigationView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/fui_transparent"
+                app:itemIconTint="#000000"
+                app:itemTextColor="#000000"
+                app:labelVisibilityMode="labeled"
+                app:menu="@menu/bottom_app_bar_menu" />
+
+            <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/panel_AppBar_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:fabAlignmentMode="center"
+                android:backgroundTint="#75B3FF"
+                app:fabCradleMargin="15dp"
+                app:fabCradleRoundedCornerRadius="50dp"
+             />
 
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

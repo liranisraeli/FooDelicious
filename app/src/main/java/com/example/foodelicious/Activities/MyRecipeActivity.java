@@ -69,7 +69,7 @@ public class MyRecipeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_recipe);
+//        setContentView(R.layout.activity_my_recipe);
 
         if (getIntent().getBundleExtra("Bundle") != null){
             this.bundle = getIntent().getBundleExtra("Bundle");
@@ -183,35 +183,35 @@ public class MyRecipeActivity extends AppCompatActivity {
         header_BAR_progress = header.findViewById(R.id.header_BAR_progress);
         toolbar_FAB_add = findViewById(R.id.toolbar_FAB_add);
 
-        recipe_RECYC_ingredients = findViewById(R.id.recipe_RECYC_ingredients);
+//        recipe_RECYC_ingredients = findViewById(R.id.recipe_RECYC_ingredients);
     }
 
     private void initButtons() {
-        nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.item1:
-                        Toast.makeText(MyRecipeActivity.this, "Profile", Toast.LENGTH_LONG).show();
-                        break;
-                    case R.id.item2:
-                        AuthUI.getInstance()
-                                .signOut(MyRecipeActivity.this)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @SuppressLint("RestrictedApi")
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        // user is now signed out
-                                        startActivity(new Intent(MyRecipeActivity.this, Activity_Login.class));
-                                        Toast.makeText(MyRecipeActivity.this, "Log Out", Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    }
-                                });
-                        break;
-                }
-                return true;
-            }
-
-        });
+//        nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.item1:
+//                        Toast.makeText(MyRecipeActivity.this, "Profile", Toast.LENGTH_LONG).show();
+//                        break;
+//                    case R.id.item2:
+//                        AuthUI.getInstance()
+//                                .signOut(MyRecipeActivity.this)
+//                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                    @SuppressLint("RestrictedApi")
+//                                    public void onComplete(@NonNull Task<Void> task) {
+//                                        // user is now signed out
+//                                        startActivity(new Intent(MyRecipeActivity.this, Activity_Login.class));
+//                                        Toast.makeText(MyRecipeActivity.this, "Log Out", Toast.LENGTH_SHORT).show();
+//                                        finish();
+//                                    }
+//                                });
+//                        break;
+//                }
+//                return true;
+//            }
+//
+//        });
 //
 //        panel_AppBar_bottom.setNavigationOnClickListener(new View.OnClickListener() {
 //            @RequiresApi(api = Build.VERSION_CODES.M)

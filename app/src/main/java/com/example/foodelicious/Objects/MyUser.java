@@ -10,21 +10,16 @@ public class MyUser {
     private String uid;
     private String name;
     private String phoneNumber;
-    private String profileImgUrl = "https://firebasestorage.googleapis.com/v0/b/superme-e69d5.appspot.com/o/images%2Fimg_profile_pic.JPG?alt=media&token=5970cec0-9663-4ddd-9395-ef2791ad938d";
-    private ArrayList<String> myListsUids;
-
-
+    private String profileImgUrl;
 
     public MyUser() { }
 
-    public MyUser(String uid, String name, String phoneNumber) {
+    public MyUser(String uid, String name, String phoneNumber, String profileImgUrl) {
         this.uid = uid;
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.profileImgUrl = "https://firebasestorage.googleapis.com/v0/b/superme-e69d5.appspot.com/o/images%2Fimg_profile_pic.JPG?alt=media&token=5970cec0-9663-4ddd-9395-ef2791ad938d";
-        this.myListsUids = new ArrayList<>();
-
-        }
+        this.profileImgUrl = profileImgUrl;
+    }
 
     public String getUid() {
         return uid;
@@ -57,14 +52,7 @@ public class MyUser {
         return this;
     }
 
-    public ArrayList<String> getMyListsUids() {
-        return myListsUids;
-    }
 
-    public MyUser setMyListsUids(ArrayList<String> myListsUids) {
-        this.myListsUids = myListsUids;
-        return this;
-    }
 
     @Override
     public String toString() {
@@ -76,13 +64,6 @@ public class MyUser {
                 '}';
     }
 
-    public boolean addToListUid(String uidToAdd){
-        return this.myListsUids.add(uidToAdd);
-    }
-
-    public boolean removeFromListsUids(String listUid) {
-        return this.myListsUids.remove(listUid);
-    }
 
     @Exclude
     public Map<String, Object> toMap() {
@@ -91,7 +72,6 @@ public class MyUser {
         result.put("name", name);
         result.put("phoneNumber", phoneNumber);
         result.put("profileImgUrl", profileImgUrl);
-        result.put("myListsUids", myListsUids);
         return result;
     }
 }
