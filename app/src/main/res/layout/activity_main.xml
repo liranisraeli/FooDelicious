@@ -15,6 +15,7 @@
             android:background="#BDD3EF"
             android:fitsSystemWindows="true">
 
+
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,7 +50,6 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/main_RECYC_categories"
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -96,7 +96,6 @@
                         app:iconTint="@color/white" />
 
 
-
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -111,7 +110,6 @@
                     android:layout_marginTop="20dp"
                     android:orientation="vertical"
                     android:padding="5dp">
-
 
 
                 </LinearLayout>
