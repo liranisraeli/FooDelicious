@@ -186,8 +186,8 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragments(panel_fragments[Profile]);
                         break;
                     case R.id.allRecipes:
-                        panel_Toolbar_Top.setTitle("All Recipes");
                         dataManager.setPath("main");
+                        panel_Toolbar_Top.setTitle("All Recipes");
                         replaceFragments(panel_fragments[All_Recipes]);
                         break;
                     case R.id.allCategories:

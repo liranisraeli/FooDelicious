@@ -21,7 +21,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
 
     private Activity activity;
-    private ArrayList<MyRecipe> recipes = new ArrayList<>();
+    private ArrayList<MyRecipe> recipes;
     private CallBackClick callBackRecipeClick;
 
     public RecipeAdapter(Activity activity, ArrayList<MyRecipe> recipes,  CallBackClick callBackRecipeClick){
@@ -44,17 +44,18 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         MyRecipe recipe = getRecipe(position);
 
         holder.recipe_LBL_title.setText(recipe.getName());
-
-
-
-//        Glide
-//                .with(activity)
-//                .load(R.drawable.img_chef)
-//                .into(holder.recipe_IMG_image);
+        if(recipe.isFavorite()){
+            holder.item_IMG_favorite.setImageResource(R.drawable.ic_heart_filled);
+        }else{
+            holder.item_IMG_favorite.setImageResource(R.drawable.ic_heart_empty);
+        }
     }
 
     @Override
     public int getItemCount() {
+        if(recipes==null){
+            return 0;
+        }
         return recipes.size();
     }
 
@@ -65,20 +66,29 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     class RecipeHolder extends RecyclerView.ViewHolder {
         private AppCompatImageView recipe_IMG_image;
         private MaterialTextView recipe_LBL_title;
-        private MaterialTextView recipe_LBL_methodSteps;
+        private AppCompatImageView item_IMG_favorite;
+
 
 
         public RecipeHolder(View itemView) {
             super(itemView);
             recipe_IMG_image = itemView.findViewById(R.id.list_IMG_image);
             recipe_LBL_title = itemView.findViewById(R.id.recipe_LBL_title);
-
+            item_IMG_favorite = itemView.findViewById(R.id.item_IMG_favorite);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //todo add ingredients
 
+                }
+            });
+
+            item_IMG_favorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callBackRecipeClick.favoriteClicked(getAdapterPosition(),getRecipe(getAdapterPosition()));
                 }
             });
         }

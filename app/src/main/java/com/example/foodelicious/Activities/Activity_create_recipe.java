@@ -1,19 +1,28 @@
 package com.example.foodelicious.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
+import com.example.foodelicious.Adapters.CategoriesAdapter;
+import com.example.foodelicious.Adapters.IngredientAdapter;
 import com.example.foodelicious.Firebase.MyDataManager;
+import com.example.foodelicious.Objects.Ingredient;
 import com.example.foodelicious.Objects.MyCategory;
 import com.example.foodelicious.Objects.MyRecipe;
 import com.example.foodelicious.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,10 +36,15 @@ public class Activity_create_recipe extends AppCompatActivity {
     private TextInputLayout form_EDT_name;
     private TextInputLayout editItem_EDT_notes;
     private TextInputLayout createRecipe_TIN_category;
+    private RecyclerView ingredients_RECYC;
+    private FloatingActionButton panel_BTN_add;
     private MaterialButton panel_BTN_create;
     private AutoCompleteTextView category_AutoCompleteTextViewCategory;
     private String categorySelected;
-    private ArrayAdapter<MyCategory> categoryAdapter;
+    private ArrayAdapter<String> categoryAdapter;
+    private ArrayList<Ingredient> ingredients;
+    private IngredientAdapter IngredientAdapter;
+
 
 
     public static final String KEY_RECIPES = "recipes";
@@ -47,25 +61,56 @@ public class Activity_create_recipe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_recipe);
-        if (getIntent().getBundleExtra("Bundle") != null){
-            this.bundle = getIntent().getBundleExtra("Bundle");
-            currentCategoryName= bundle.getString("currentCategoryName");
-        } else {
-            this.bundle = new Bundle();
-        }
+
         findViews();
-//        configEditFields();
+        initAdapter();
         initButtons();
     }
 
+
+    private void initAdapter() {
+        IngredientAdapter = new IngredientAdapter(this,ingredients);
+        ingredients_RECYC.setLayoutManager(new GridLayoutManager(this,1));
+        ingredients_RECYC.setAdapter(IngredientAdapter);
+
+
+
+        IngredientAdapter.setIngredientListener(new IngredientAdapter.IngredientListener() {
+            @Override
+            public void clicked(Ingredient ingredient, int position) {
+
+                Toast.makeText(Activity_create_recipe.this, ingredient.getName(),Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void plus(Ingredient ingredient, int position) {
+                ingredient.addAmount(1);
+                ingredients_RECYC.getAdapter().notifyItemChanged(position);
+            }
+            @Override
+            public void minus(Ingredient ingredient, int position) {
+                ingredient.addAmount(-1);
+                ingredients_RECYC.getAdapter().notifyItemChanged(position);
+            }
+
+        });
+
+        IngredientAdapter.notifyDataSetChanged();
+
+        categoryAdapter = new ArrayAdapter<String>(this,R.layout.drop_down_category,dataManager.getCategoriesName());
+        category_AutoCompleteTextViewCategory.setAdapter(categoryAdapter);
+    }
+
     private void findViews() {
+        Ingredient ingredient = new Ingredient();
+        ingredients = new ArrayList<Ingredient>();
+        ingredients.add(ingredient);
         form_EDT_name = findViewById(R.id.form_EDT_name);
         editItem_EDT_notes = findViewById(R.id.editItem_EDT_notes);
         panel_BTN_create = findViewById(R.id.panel_BTN_create);
+        ingredients_RECYC = findViewById(R.id.ingredients_RECYC);
+        panel_BTN_add = findViewById(R.id.panel_BTN_add);
         createRecipe_TIN_category = findViewById(R.id.createRecipe_TIN_category);
         category_AutoCompleteTextViewCategory = findViewById(R.id.category_AutoCompleteTextViewCategory);
-        categoryAdapter = new ArrayAdapter<MyCategory>(this,R.layout.drop_down_category,dataManager.getMyCategories());
-        category_AutoCompleteTextViewCategory.setAdapter(categoryAdapter);
     }
 
 
@@ -78,6 +123,15 @@ public class Activity_create_recipe extends AppCompatActivity {
             }
         });
 
+        panel_BTN_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Ingredient ingredient = new Ingredient();
+                ingredients.add(ingredient);
+                IngredientAdapter.notifyDataSetChanged();
+            }
+        });
+
         panel_BTN_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,10 +140,11 @@ public class Activity_create_recipe extends AppCompatActivity {
                 tempRecipe.setMethodSteps(editItem_EDT_notes.getEditText().getText().toString());
                 tempRecipe.setCategory(categorySelected);
                 tempRecipe.setFavorite(false);
-                DatabaseReference myRef = realtimeDB.getReference(KEY_USERS).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("categories").child(currentCategoryName).child("recipes");
-                myRef.child(tempRecipe.getName()).child("name").setValue(tempRecipe.getName());
+                tempRecipe.setIngredients(ingredients);
+                tempRecipe.setRecipeUid(dataManager.getMyRecipes().size()+1);
+                dataManager.getMyRecipes().add(tempRecipe);
                 dataManager.addNewRecipe(tempRecipe);
-                startActivity(new Intent(Activity_create_recipe.this, MyAllRecipesActivity.class));
+                dataManager.getCallBackCreateRecipe().createRecipe();
                 finish();
             }
         });

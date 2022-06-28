@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 
 import com.example.foodelicious.Adapters.CategoriesAdapter;
 import com.example.foodelicious.CallBacks.CallBackClick;
+import com.example.foodelicious.CallBacks.CallBackCreateRecipe;
 import com.example.foodelicious.Firebase.MyDataManager;
+import com.example.foodelicious.Objects.MyRecipe;
 import com.example.foodelicious.R;
 
 public class CategoriesFragment extends Fragment {
@@ -28,6 +30,18 @@ public class CategoriesFragment extends Fragment {
         public void onClicked() {
             dataManager.setPath("categories");
             getParentFragmentManager().beginTransaction().replace(R.id.panel_Fragment,RecipesFragment.class,null).commit();
+        }
+
+        @Override
+        public void favoriteClicked(int pos, MyRecipe recipe) {
+
+        }
+    };
+
+    CallBackCreateRecipe callBackCreateRecipe = new CallBackCreateRecipe(){
+        @Override
+        public void createRecipe() {
+            categoriesAdapter.notifyDataSetChanged();
         }
     };
 
@@ -49,6 +63,7 @@ public class CategoriesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_categories, container, false);
+        dataManager.setCallBackCreateRecipe(callBackCreateRecipe);
 
         findViews(view);
         initAdapter();

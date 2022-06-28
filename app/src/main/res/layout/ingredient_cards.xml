@@ -3,16 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#BDD3EF">
-
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="5dp"
             android:elevation="7dp"
             app:cardElevation="7dp"
             app:cardCornerRadius="18dp"
@@ -43,13 +41,31 @@
                     android:orientation="vertical"
                     android:padding="5dp">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/ingridient_LBL_title"
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/ingredient_LBL_Name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="NAME"
-                        android:textColor="#000000"
-                        android:textSize="16sp" />
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:hint=""
+                        android:textColorHint="@color/black"
+                        app:boxBackgroundColor="#75B3FF"
+                        app:boxBackgroundMode="filled"
+                        app:boxStrokeColor="#75B3FF"
+                        app:errorEnabled="false"
+                        app:startIconDrawable="@drawable/ic_ingredient"
+                        app:startIconTint="@color/black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/font_buttons"
+                            android:inputType="textPersonName"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="wrap_content"
@@ -60,7 +76,7 @@
                         android:layout_gravity="end">
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/ingridient_BTN_minus"
+                            android:id="@+id/ingredient_BTN_minus"
                             style="@style/Widget.Material3.Button.IconButton"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -73,7 +89,7 @@
                             app:iconSize="16dp"/>
 
                         <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/ingridient_LBL_amount"
+                            android:id="@+id/ingredient_LBL_amount"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
@@ -84,7 +100,7 @@
                             android:textSize="18sp" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/ingridient_BTN_plus"
+                            android:id="@+id/ingredient_BTN_plus"
                             style="@style/Widget.Material3.Button.IconButton"
                             android:layout_width="30dp"
                             android:layout_height="30dp"

@@ -1,22 +1,26 @@
 package com.example.foodelicious.Objects;
 
+import java.util.ArrayList;
+
 public class MyRecipe {
 
     private String name;
     private String methodSteps;
-    private String recipeUid;
+    private int recipeUid;
     private String category;
     private boolean favorite;
+    private ArrayList<Ingredient> ingredients;
 
     public  MyRecipe() {
     }
 
-    public MyRecipe(String name, String methodSteps, String recipeUid, String category, boolean favorite) {
+    public MyRecipe(String name, String methodSteps, int recipeUid, String category, boolean favorite, ArrayList<Ingredient> ingredients) {
         this.name = name;
         this.methodSteps = methodSteps;
         this.recipeUid = recipeUid;
         this.category = category;
         this.favorite = favorite;
+        this.ingredients = ingredients;
     }
 
     public boolean isFavorite() {
@@ -54,12 +58,21 @@ public class MyRecipe {
         this.methodSteps = methodSteps;
     }
 
-    public String getRecipeUid() {
+    public int getRecipeUid() {
         return recipeUid;
     }
 
-    public void setRecipeUid(String recipeUid) {
+    public MyRecipe setRecipeUid(int recipeUid) {
         this.recipeUid = recipeUid;
+        return this;
     }
 
+    public ArrayList<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public MyRecipe setIngredients(ArrayList<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+        return this;
+    }
 }

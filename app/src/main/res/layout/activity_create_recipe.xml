@@ -8,12 +8,10 @@
     tools:context=".Activities.Activity_create_recipe">
 
     <TextView
+        android:id="@+id/createRecipe_Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/createCategory_CARD_main"
         android:layout_marginBottom="30dp"
-
-
         android:fontFamily="@font/font_buttons"
         android:text="Create New Recipe"
         android:textAlignment="center"
@@ -23,8 +21,10 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/createCategory_CARD_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/createRecipe_Title"
+        android:layout_above="@+id/panel_BTN_create"
         android:layout_centerInParent="true"
         android:elevation="8dp"
         app:cardBackgroundColor="@color/white"
@@ -32,8 +32,8 @@
         app:cardElevation="8dp">
 
         <LinearLayout
-            android:layout_width="300dp"
-            android:layout_height="450dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
 
@@ -111,13 +111,38 @@
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:fontFamily="@font/font_buttons"
+                    android:maxLines="10"
                     android:inputType="textAutoCorrect"
-                    android:maxLines="3"
                     android:textColor="@color/black"
                     android:textSize="16sp"
+                    android:imeOptions="actionNext"
                     android:textStyle="bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/panel_BTN_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:layout_gravity="end"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_add"
+                app:maxImageSize="35dp"
+                app:tint="@color/white" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ingredients_RECYC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                />
+
+
+
+
+
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -126,9 +151,9 @@
         android:id="@+id/panel_BTN_create"
         style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
         android:layout_width="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_height="60dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="#000000"
         android:elevation="8dp"

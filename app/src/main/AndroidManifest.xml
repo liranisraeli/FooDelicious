@@ -18,12 +18,6 @@
             android:name=".Activities.Activity_create_recipe"
             android:exported="false" />
         <activity
-            android:name=".Activities.MyAllRecipesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activities.MyRecipeActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activities.Activity_create_category"
             android:exported="false" />
         <activity

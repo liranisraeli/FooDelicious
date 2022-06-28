@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.FavoritesFragment">
+    tools:context=".Fragments.IngredientFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/favorite_recipes_RECYC"
+        android:id="@+id/ingredients_RECYC"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         />
+
 
 </FrameLayout>

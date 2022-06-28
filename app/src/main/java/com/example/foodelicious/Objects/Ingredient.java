@@ -2,10 +2,13 @@ package com.example.foodelicious.Objects;
 
 public class Ingredient {
 
-    private String name = "";
-    private int amount = 0;
+    private String name;
+    private int amount;
 
-    public Ingredient() { }
+    public Ingredient() {
+        this.name =  "Enter Ingredient";
+        this.amount = 0;
+    }
 
     public String getName() {
         return name;

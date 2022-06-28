@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.foodelicious.CallBacks.CallBackCreateRecipe;
 import com.example.foodelicious.Objects.MyCategory;
 import com.example.foodelicious.Objects.MyRecipe;
 import com.example.foodelicious.Objects.MyUser;
@@ -22,6 +23,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MyDataManager {
+
+    private static MyDataManager single_instance = null;
+
+    private CallBackCreateRecipe callBackCreateRecipe;
     private final FirebaseAuth firebaseAuth;
     private final FirebaseStorage storage;
     private final FirebaseDatabase realTimeDB;
@@ -37,11 +42,19 @@ public class MyDataManager {
 
     private ArrayList<MyRecipe> myRecipes;
     private ArrayList<MyCategory> myCategories;
+    private ArrayList<String> categoriesName;
     private String currentCategoryName;
     private ArrayList<MyRecipe> filteredCurrentRecipes;
     private String path;
 
-    private static MyDataManager single_instance = null;
+    public CallBackCreateRecipe getCallBackCreateRecipe() {
+        return callBackCreateRecipe;
+    }
+
+    public MyDataManager setCallBackCreateRecipe(CallBackCreateRecipe callBackCreateRecipe) {
+        this.callBackCreateRecipe = callBackCreateRecipe;
+        return this;
+    }
 
     private MyDataManager() {
         firebaseAuth = FirebaseAuth.getInstance();
@@ -100,6 +113,7 @@ public class MyDataManager {
 
     private void buildArrays() {
         myRecipes = new ArrayList<MyRecipe>();
+        categoriesName = new ArrayList<String>();
         myCategories = new ArrayList<MyCategory>();
         MyCategory categoryFish = new MyCategory();
         categoryFish.setTitle("Fish").setImage_cover("https://firebasestorage.googleapis.com/v0/b/foodelicious-8c630.appspot.com/o/default_pictures%2Fic_fish.jpg?alt=media&token=aa16792a-5904-4bc6-a0ec-18b58f61e755");
@@ -119,6 +133,13 @@ public class MyDataManager {
         MyCategory categoryDesserts = new MyCategory();
         categoryDesserts.setTitle("Desserts").setImage_cover("https://firebasestorage.googleapis.com/v0/b/foodelicious-8c630.appspot.com/o/default_pictures%2Fic_desserts.jpg?alt=media&token=333066e1-13dc-48fb-b243-ce7ddf1269f1");
         myCategories.add(categoryDesserts);
+        for (int i=0;i<myCategories.size();i++){
+            categoriesName.add(myCategories.get(i).getTitle());
+        }
+    }
+
+    public ArrayList<String> getCategoriesName() {
+        return categoriesName;
     }
 
     public ArrayList<MyCategory> getMyCategories() {
@@ -174,11 +195,11 @@ public class MyDataManager {
     }
 
     public void addNewRecipe(MyRecipe recipe) {
-        DatabaseReference myRef = realTimeDB.getReference(KEY_RECIPES).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("categories").child(recipe.getCategory());
+        DatabaseReference myRef = realTimeDB.getReference(KEY_RECIPES).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("categories").child(recipe.getCategory()).child(myRecipes.size()+"");
         myRef.child("name").setValue(recipe.getName());
         myRef.child("method steps").setValue(recipe.getMethodSteps());
         myRef.child("favorites").setValue(recipe.isFavorite());
-        myRecipes.add(recipe);
+        myRef.child("ingredients").setValue(recipe.getIngredients());
     }
 }
 

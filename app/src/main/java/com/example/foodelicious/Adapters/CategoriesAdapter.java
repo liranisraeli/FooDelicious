@@ -1,6 +1,7 @@
 package com.example.foodelicious.Adapters;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +22,10 @@ import java.util.ArrayList;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-
-    public interface CategoryListener {
-        void clicked(MyCategory category, int position);
-    }
-
     private final MyDataManager dataManager = MyDataManager.getInstance();
     private Activity activity;
-    private ArrayList<MyCategory> categories = new ArrayList<>();
+    private ArrayList<MyCategory> categories;
     private CallBackClick callBackCategoryClick;
-    private MyCategory category;
 
     public CategoriesAdapter(Activity activity, ArrayList<MyCategory> categories, CallBackClick callBackCategoryClick){
         this.activity = activity;
@@ -41,15 +36,13 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.categories_cards, parent, false);
-        CategoryHolder categoryHolder = new CategoryHolder(view);
-        return categoryHolder;
+        return new CategoryHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-
-        final CategoryHolder holder = (CategoryHolder) viewHolder;
-        category = getItem(position);
+        CategoryHolder holder = (CategoryHolder) viewHolder;
+        MyCategory category = getItem(position);
 
         holder.list_LBL_title.setText(category.getTitle());
 
@@ -57,6 +50,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 .with(activity)
                 .load(category.getImage_cover())
                 .into(holder.list_IMG_image);
+
+
+
     }
 
     @Override
@@ -73,11 +69,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private MaterialTextView list_LBL_title;
 
 
-        public CategoryHolder(View itemView) {
+        public CategoryHolder(final View itemView) {
             super(itemView);
             list_IMG_image = itemView.findViewById(R.id.list_IMG_image);
             list_LBL_title = itemView.findViewById(R.id.list_LBL_title);
-
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,15 +80,17 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     if (callBackCategoryClick != null) {
                         ArrayList<MyRecipe> recipes=new ArrayList<MyRecipe>();
                         for(MyRecipe recipe: dataManager.getMyRecipes()){
-                            if(recipe.getCategory().equals(category.getTitle())){
+                            if(recipe.getCategory().equals(dataManager.getCategoriesName().get(getAdapterPosition()))){
                                 recipes.add(recipe);
                             }
                         }
                         dataManager.setFilteredCurrentRecipes(recipes);
+                        dataManager.setCurrentCategoryName(dataManager.getCategoriesName().get(getAdapterPosition()));
                         callBackCategoryClick.onClicked();
                     }
                 }
             });
+
         }
 
     }
