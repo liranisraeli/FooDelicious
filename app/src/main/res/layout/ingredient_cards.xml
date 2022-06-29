@@ -13,34 +13,14 @@
             android:layout_marginTop="5dp"
             android:elevation="7dp"
             app:cardElevation="7dp"
-            app:cardCornerRadius="18dp"
-            >
+            app:cardCornerRadius="18dp">
 
-            <TextView
-                android:id="@+id/editItem_TXT_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ingredients"
-                android:textSize="25sp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/font_buttons"
-                android:textStyle="bold"
-                android:textAlignment="center"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="#75B3FF">
-
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="5dp">
-
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="#BDD3EF">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/ingredient_LBL_Name"
@@ -48,21 +28,25 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="10dp"
-                        android:hint=""
+                        android:hint="Enter Ingredient"
                         android:textColorHint="@color/black"
-                        app:boxBackgroundColor="#75B3FF"
+                        app:boxBackgroundColor="#BDD3EF"
                         app:boxBackgroundMode="filled"
-                        app:boxStrokeColor="#75B3FF"
+                        app:boxStrokeColor="#BDD3EF"
                         app:errorEnabled="false"
                         app:startIconDrawable="@drawable/ic_ingredient"
                         app:startIconTint="@color/black">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/text_EDT_IngredientName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/font_buttons"
                             android:inputType="textPersonName"
                             android:textColor="@color/black"
+                            android:imeActionLabel="Done"
+                            android:singleLine="true"
+                            android:keyboardNavigationCluster="true"
                             android:textSize="16sp"
                             android:textStyle="bold" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -114,14 +98,9 @@
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
-                </LinearLayout>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </com.google.android.material.card.MaterialCardView>
-
-
-
-
 
 </RelativeLayout>

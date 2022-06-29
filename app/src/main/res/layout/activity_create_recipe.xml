@@ -36,7 +36,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/form_EDT_name"
                 android:layout_width="match_parent"
@@ -45,6 +44,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:hint="Recipe Name"
+                android:backgroundTint="#1F000000"
                 android:textColorHint="@color/black"
                 app:boxBackgroundColor="#ECE8E8"
                 app:boxBackgroundMode="filled"
@@ -58,6 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/font_buttons"
+                    android:background="#1F000000"
                     android:inputType="textPersonName"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -87,38 +88,39 @@
                     android:layout_height="match_parent"
                     android:fontFamily="@font/font_buttons"
                     android:inputType="none"
+                    android:backgroundTint="#1F000000"
                     android:text="Category"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:startIconDrawable="@drawable/ic_edit"
+                    app:startIconTint="@color/black"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
                 android:id="@+id/editItem_EDT_notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="Method Steps"
+                android:padding="10dp"
+                android:hint=" Method Steps"
+                android:textColorHint="@color/black"
+                android:fontFamily="@font/font_buttons"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:background="#1F000000"
                 app:counterEnabled="true"
                 app:counterMaxLength="500"
-                app:startIconDrawable="@drawable/ic_edit"
-                app:startIconTint="@color/black">
+                android:drawableStart="@drawable/ic_edit"
+                android:drawableTint="@color/black"
+                android:drawablePadding="10dp"
+                >
+            </EditText>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/text_EDT_notes"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:fontFamily="@font/font_buttons"
-                    android:maxLines="10"
-                    android:inputType="textAutoCorrect"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:imeOptions="actionNext"
-                    android:textStyle="bold" />
-
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/panel_BTN_add"
@@ -138,11 +140,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 />
-
-
-
-
-
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

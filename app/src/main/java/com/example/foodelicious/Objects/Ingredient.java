@@ -6,7 +6,7 @@ public class Ingredient {
     private int amount;
 
     public Ingredient() {
-        this.name =  "Enter Ingredient";
+        this.name = "";
         this.amount = 0;
     }
 

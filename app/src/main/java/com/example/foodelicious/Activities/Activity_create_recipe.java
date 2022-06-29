@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.foodelicious.Adapters.CategoriesAdapter;
@@ -34,7 +35,7 @@ import java.util.ArrayList;
 public class Activity_create_recipe extends AppCompatActivity {
 
     private TextInputLayout form_EDT_name;
-    private TextInputLayout editItem_EDT_notes;
+    private EditText editItem_EDT_notes;
     private TextInputLayout createRecipe_TIN_category;
     private RecyclerView ingredients_RECYC;
     private FloatingActionButton panel_BTN_add;
@@ -45,23 +46,17 @@ public class Activity_create_recipe extends AppCompatActivity {
     private ArrayList<Ingredient> ingredients;
     private IngredientAdapter IngredientAdapter;
 
-
-
-    public static final String KEY_RECIPES = "recipes";
-
     private final MyDataManager dataManager = MyDataManager.getInstance();
     private final FirebaseDatabase realtimeDB = dataManager.getRealTimeDB();
 
-    private Bundle bundle;
-    private String currentCategoryName;
 
+    public static final String KEY_RECIPES = "recipes";
     public static final String KEY_USERS = "users";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_recipe);
-
         findViews();
         initAdapter();
         initButtons();
@@ -77,10 +72,13 @@ public class Activity_create_recipe extends AppCompatActivity {
 
         IngredientAdapter.setIngredientListener(new IngredientAdapter.IngredientListener() {
             @Override
-            public void clicked(Ingredient ingredient, int position) {
-
+            public void clicked(Ingredient ingredient, int position,String name) {
+                ingredient.setName(name);
                 Toast.makeText(Activity_create_recipe.this, ingredient.getName(),Toast.LENGTH_SHORT).show();
+                ingredients_RECYC.getAdapter().notifyItemChanged(position);
             }
+
+
             @Override
             public void plus(Ingredient ingredient, int position) {
                 ingredient.addAmount(1);
@@ -88,7 +86,11 @@ public class Activity_create_recipe extends AppCompatActivity {
             }
             @Override
             public void minus(Ingredient ingredient, int position) {
-                ingredient.addAmount(-1);
+                if(ingredient.getAmount()==0){
+                    Toast.makeText(Activity_create_recipe.this,"Amount Cannot Be Negative",Toast.LENGTH_SHORT).show();
+                }else{
+                    ingredient.addAmount(-1);
+                }
                 ingredients_RECYC.getAdapter().notifyItemChanged(position);
             }
 
@@ -137,7 +139,7 @@ public class Activity_create_recipe extends AppCompatActivity {
             public void onClick(View v) {
                 MyRecipe tempRecipe = new MyRecipe();
                 tempRecipe.setName(form_EDT_name.getEditText().getText().toString());
-                tempRecipe.setMethodSteps(editItem_EDT_notes.getEditText().getText().toString());
+                tempRecipe.setMethodSteps(editItem_EDT_notes.getText().toString());
                 tempRecipe.setCategory(categorySelected);
                 tempRecipe.setFavorite(false);
                 tempRecipe.setIngredients(ingredients);

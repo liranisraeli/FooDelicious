@@ -26,7 +26,6 @@ public class RecipesFragment extends Fragment {
     private RecyclerView recipes_RECYC;
     private MaterialToolbar panel_Toolbar_Top;
 
-
     private final MyDataManager dataManager = MyDataManager.getInstance();
 
     CallBackClick callBackRecipeClick = new CallBackClick(){
@@ -38,7 +37,6 @@ public class RecipesFragment extends Fragment {
 
         @Override
         public void favoriteClicked(int pos, MyRecipe recipe) {
-            //dataManager.getMyRecipes().get(pos).setFavorite(!recipe.isFavorite());
             dataManager.getMyRecipes().get(pos).setFavorite(!recipe.isFavorite());
             dataManager.addNewRecipe(dataManager.getMyRecipes().get(pos));
             recipes_RECYC.getAdapter().notifyItemChanged(pos);

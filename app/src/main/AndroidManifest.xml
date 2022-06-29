@@ -16,6 +16,7 @@
         android:theme="@style/Theme.FooDelicious">
         <activity
             android:name=".Activities.Activity_create_recipe"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".Activities.Activity_create_category"

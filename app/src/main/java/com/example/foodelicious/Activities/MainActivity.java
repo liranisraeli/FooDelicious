@@ -213,22 +213,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //todo check
-        panel_Toolbar_Top.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //todo check
-                Toast.makeText(MainActivity.this, "Back", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-
-
-
-
-
-
     }
 
 
@@ -264,33 +248,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        DatabaseReference categoryRef= realtimeDB.getReference("users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("categories");
-//        categoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot child : snapshot.getChildren()) {
-//                    try {
-//                        String image = child.child("image").getValue(String.class);
-//                        String name = child.child("title").getValue(String.class);
-//                        MyCategory tempCategory = new MyCategory();
-//                        tempCategory.setTitle(name);
-//                        tempCategory.setImage_cover(image);
-//                        myCategories.add(tempCategory);
-//
-//                    } catch (Exception ex) {}
-//                }
-//                Log.d("pttt",myCategories.toString());
-//                initAdapter();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+
     }
-
-
 
 
     /**
@@ -366,7 +325,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.panel_Fragment, fragment, null);
         fragmentTransaction.commit();
     }
-
 
 
 

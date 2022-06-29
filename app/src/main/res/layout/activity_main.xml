@@ -28,12 +28,9 @@
                     android:background="#75B3FF"
                     app:layout_scrollFlags="scroll|enterAlways|snap"
                     app:menu="@menu/drawer_menu"
-                    app:navigationIcon="@drawable/ic_arrow_back"
-                    app:navigationIconTint="@color/black"
                     app:titleCentered="true"
                     android:fontFamily="@font/font_buttons"
                     app:titleTextColor="@color/black"
-
                     />
 
 
