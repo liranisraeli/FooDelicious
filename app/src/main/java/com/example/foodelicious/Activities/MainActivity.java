@@ -29,7 +29,9 @@ import com.example.foodelicious.Fragments.CategoriesFragment;
 import com.example.foodelicious.Fragments.FavoritesFragment;
 import com.example.foodelicious.Fragments.ProfileFragment;
 import com.example.foodelicious.Fragments.RecipesFragment;
+import com.example.foodelicious.Objects.Ingredient;
 import com.example.foodelicious.Objects.MyCategory;
+import com.example.foodelicious.Objects.MyRecipe;
 import com.example.foodelicious.Objects.MyUser;
 import com.example.foodelicious.R;
 import com.firebase.ui.auth.AuthUI;
@@ -61,7 +63,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    //todo check
+    private ArrayList<MyRecipe> myRecipes = new ArrayList();
 
     private Bundle bundle;
 
@@ -245,6 +248,40 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        //todo check if load
+
+        DatabaseReference userRef = realtimeDB.getReference("recipes");
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                myRecipes = new ArrayList<>();
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    try {
+                        String name = child.child("name").getValue(String.class);
+                        String methodSteps = child.child("method steps").getValue(String.class);
+                        boolean isFavorite = child.child("favorites").getValue(Boolean.class);
+                        String category = child.child("categories").getValue(String.class);
+                        MyRecipe tempRecipe = new MyRecipe();
+                        tempRecipe.setName(name);
+                        tempRecipe.setMethodSteps(methodSteps);
+                        tempRecipe.setFavorite(isFavorite);
+                        tempRecipe.setCategory(category);
+
+                        myRecipes.add(tempRecipe);
+                    } catch (Exception ex) {
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
 
     }

@@ -1,6 +1,6 @@
 package com.example.foodelicious.Firebase;
 
-import android.util.Log;
+
 
 import androidx.annotation.NonNull;
 
@@ -8,21 +8,16 @@ import com.example.foodelicious.CallBacks.CallBackCreateRecipe;
 import com.example.foodelicious.Objects.MyCategory;
 import com.example.foodelicious.Objects.MyRecipe;
 import com.example.foodelicious.Objects.MyUser;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class MyDataManager {
 
@@ -228,29 +223,29 @@ public class MyDataManager {
         myRef.child("ingredients").setValue(recipe.getIngredients());
     }
 
-    public void loadRecipes(String uid) {
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<MyRecipe> recipes = new ArrayList<>();
-                if (snapshot.exists()) {
-                    for (DataSnapshot child : snapshot.getChildren()) {
-                        try {
-                            MyRecipe recipe = child.getValue(MyRecipe.class);
-                            recipes.add(recipe);
-                        } catch (Exception ex) {
-                        }
-                    }
-                }
-                myRecipes = recipes;
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-    }
+//    public void loadRecipes(String uid) {
+//        ValueEventListener valueEventListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                ArrayList<MyRecipe> recipes = new ArrayList<>();
+//                if (snapshot.exists()) {
+//                    for (DataSnapshot child : snapshot.getChildren()) {
+//                        try {
+//                            MyRecipe recipe = child.getValue(MyRecipe.class);
+//                            recipes.add(recipe);
+//                        } catch (Exception ex) {
+//                        }
+//                    }
+//                }
+//                myRecipes = recipes;
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        };
+//    }
 }
 
 
