@@ -4,10 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,7 +12,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.foodelicious.Adapters.CategoriesAdapter;
 import com.example.foodelicious.Adapters.IngredientAdapter;
 import com.example.foodelicious.Firebase.MyDataManager;
 import com.example.foodelicious.Objects.Ingredient;
@@ -24,10 +20,7 @@ import com.example.foodelicious.Objects.MyRecipe;
 import com.example.foodelicious.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -44,7 +37,7 @@ public class Activity_create_recipe extends AppCompatActivity {
     private String categorySelected;
     private ArrayAdapter<String> categoryAdapter;
     private ArrayList<Ingredient> ingredients;
-    private IngredientAdapter IngredientAdapter;
+    private IngredientAdapter ingredientAdapter;
 
     private final MyDataManager dataManager = MyDataManager.getInstance();
     private final FirebaseDatabase realtimeDB = dataManager.getRealTimeDB();
@@ -57,6 +50,7 @@ public class Activity_create_recipe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_recipe);
+        dataManager.setMyRecipesPath("create");
         findViews();
         initAdapter();
         initButtons();
@@ -64,13 +58,13 @@ public class Activity_create_recipe extends AppCompatActivity {
 
 
     private void initAdapter() {
-        IngredientAdapter = new IngredientAdapter(this,ingredients);
+        ingredientAdapter = new IngredientAdapter(this,ingredients);
         ingredients_RECYC.setLayoutManager(new GridLayoutManager(this,1));
-        ingredients_RECYC.setAdapter(IngredientAdapter);
+        ingredients_RECYC.setAdapter(ingredientAdapter);
 
 
 
-        IngredientAdapter.setIngredientListener(new IngredientAdapter.IngredientListener() {
+        ingredientAdapter.setIngredientListener(new IngredientAdapter.IngredientListener() {
             @Override
             public void clicked(Ingredient ingredient, int position,String name) {
                 ingredient.setName(name);
@@ -96,7 +90,7 @@ public class Activity_create_recipe extends AppCompatActivity {
 
         });
 
-        IngredientAdapter.notifyDataSetChanged();
+        ingredientAdapter.notifyDataSetChanged();
 
         categoryAdapter = new ArrayAdapter<String>(this,R.layout.drop_down_category,dataManager.getCategoriesName());
         category_AutoCompleteTextViewCategory.setAdapter(categoryAdapter);
@@ -130,7 +124,7 @@ public class Activity_create_recipe extends AppCompatActivity {
             public void onClick(View view) {
                 Ingredient ingredient = new Ingredient();
                 ingredients.add(ingredient);
-                IngredientAdapter.notifyDataSetChanged();
+                ingredientAdapter.notifyDataSetChanged();
             }
         });
 
@@ -141,6 +135,7 @@ public class Activity_create_recipe extends AppCompatActivity {
                 tempRecipe.setName(form_EDT_name.getEditText().getText().toString());
                 tempRecipe.setMethodSteps(editItem_EDT_notes.getText().toString());
                 tempRecipe.setCategory(categorySelected);
+                getCategory();
                 tempRecipe.setFavorite(false);
                 tempRecipe.setIngredients(ingredients);
                 tempRecipe.setRecipeUid(dataManager.getMyRecipes().size()+1);
@@ -154,6 +149,13 @@ public class Activity_create_recipe extends AppCompatActivity {
 
     }
 
+    private void getCategory() {
+        for(int i=0;i<dataManager.getMyCategories().size();i++){
+            if(dataManager.getMyCategories().get(i).getTitle().equals(categorySelected)){
+                dataManager.getMyCategories().get(i).setItems_Counter(dataManager.getMyCategories().get(i).getItems_Counter()+1);
+            }
+        }
+    }
 
 
 }

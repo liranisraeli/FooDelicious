@@ -27,7 +27,6 @@
                     android:layout_height="?attr/actionBarSize"
                     android:background="#75B3FF"
                     app:layout_scrollFlags="scroll|enterAlways|snap"
-                    app:menu="@menu/drawer_menu"
                     app:titleCentered="true"
                     android:fontFamily="@font/font_buttons"
                     app:titleTextColor="@color/black"

@@ -4,23 +4,32 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.foodelicious.Adapters.IngredientAdapter;
+import com.example.foodelicious.Adapters.ContentRecipeAdapter;
+import com.example.foodelicious.Firebase.MyDataManager;
 import com.example.foodelicious.Objects.Ingredient;
 import com.example.foodelicious.R;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;
 
-public class IngredientFragment extends Fragment {
+public class ContentRecipeFragment extends Fragment {
 
     private AppCompatActivity activity;
-    private RecyclerView ingredients_RECYC;
+    private RecyclerView Context_Recipe_RECYC;
+    private MaterialToolbar panel_Toolbar_Top;
+
+    private final MyDataManager dataManager = MyDataManager.getInstance();
+
+
+
     private ArrayList<Ingredient> myIngredients = new ArrayList();
     IngredientAdapter ingredientAdapter;
 
@@ -29,7 +38,7 @@ public class IngredientFragment extends Fragment {
         return this;
     }
 
-    public IngredientFragment() {
+    public ContentRecipeFragment() {
         // Required empty public constructor
     }
 
@@ -43,7 +52,7 @@ public class IngredientFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_ingredient, container, false);
+        View view = inflater.inflate(R.layout.fragment_context_recipe, container, false);
         findViews(view);
         loadData();
         
@@ -53,13 +62,25 @@ public class IngredientFragment extends Fragment {
 
 
     private void findViews(View view) {
-        ingredients_RECYC = view.findViewById(R.id.ingredients_RECYC);
+        Context_Recipe_RECYC = view.findViewById(R.id.Context_Recipe_RECYC);
+        panel_Toolbar_Top = getActivity().findViewById(R.id.panel_Toolbar_Top);
+
+        ContentRecipeAdapter recipeContentAdapter;
+        panel_Toolbar_Top.setTitle(dataManager.getCurrentRecipe().getName());
+        recipeContentAdapter = new ContentRecipeAdapter(this.activity,dataManager.getMyRecipes());
+
+
+        Context_Recipe_RECYC.setLayoutManager(new GridLayoutManager(this.activity,1));
+        Context_Recipe_RECYC.setAdapter(recipeContentAdapter);
+        recipeContentAdapter.notifyDataSetChanged();
+
     }
 
 
 
 
     private void loadData() {
+
     }
 
 

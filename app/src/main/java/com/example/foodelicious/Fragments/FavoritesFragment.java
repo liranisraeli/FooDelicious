@@ -33,7 +33,7 @@ public class FavoritesFragment extends Fragment {
         @Override
         public void onClicked() {
 
-            getParentFragmentManager().beginTransaction().replace(R.id.panel_Fragment,IngredientFragment.class,null).commit();
+            getParentFragmentManager().beginTransaction().replace(R.id.panel_Fragment, ContentRecipeFragment.class,null).commit();
         }
 
         @Override

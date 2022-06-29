@@ -45,6 +45,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         MyCategory category = getItem(position);
 
         holder.list_LBL_title.setText(category.getTitle());
+        holder.list_LBL_counter.setText("recipes amount " + category.getItems_Counter());
 
         Glide
                 .with(activity)
@@ -67,12 +68,14 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     class CategoryHolder extends RecyclerView.ViewHolder {
         private AppCompatImageView list_IMG_image;
         private MaterialTextView list_LBL_title;
+        private MaterialTextView list_LBL_counter;
 
 
         public CategoryHolder(final View itemView) {
             super(itemView);
             list_IMG_image = itemView.findViewById(R.id.list_IMG_image);
             list_LBL_title = itemView.findViewById(R.id.list_LBL_title);
+            list_LBL_counter = itemView.findViewById(R.id.list_LBL_counter);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

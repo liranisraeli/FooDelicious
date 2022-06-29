@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.foodelicious.Adapters.CategoriesAdapter;
 import com.example.foodelicious.Adapters.RecipeAdapter;
 import com.example.foodelicious.CallBacks.CallBackClick;
 import com.example.foodelicious.Firebase.MyDataManager;
@@ -31,8 +30,7 @@ public class RecipesFragment extends Fragment {
     CallBackClick callBackRecipeClick = new CallBackClick(){
         @Override
         public void onClicked() {
-
-            getParentFragmentManager().beginTransaction().replace(R.id.panel_Fragment,IngredientFragment.class,null).commit();
+            getParentFragmentManager().beginTransaction().replace(R.id.panel_Fragment, ContentRecipeFragment.class,null).commit();
         }
 
         @Override
@@ -62,6 +60,7 @@ public class RecipesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipes, container, false);
+        dataManager.setMyRecipesPath("recipe");
         findViews(view);
 
 

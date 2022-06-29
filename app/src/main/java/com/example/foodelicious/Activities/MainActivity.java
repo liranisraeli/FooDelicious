@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     //nav
-    private DrawerLayout drawer_layout;
     private MaterialToolbar panel_Toolbar_Top;
     private NavigationView nav_view;
     private View header;
@@ -107,18 +106,17 @@ public class MainActivity extends AppCompatActivity {
         setFragments();
         panel_Toolbar_Top.setTitle("Categories");
         replaceFragments(panel_fragments[Categories]);
-//        initAdapter();
         initButtons();
         updateUI();
     }
 
     private void findViews() {
-        drawer_layout = findViewById(R.id.drawer_layout);
         panel_Toolbar_Top = findViewById(R.id.panel_Toolbar_Top);
         panel_AppBar_bottom = findViewById(R.id.panel_AppBar_bottom);
         toolbar_FAB_add = findViewById(R.id.toolbar_FAB_add);
         panel_BottomNavigationView = findViewById(R.id.panel_BottomNavigationView);
         panel_BottomNavigationView.setBackground(null);
+        panel_Toolbar_Top.setNavigationIconTint(0);
 
         //nav
         nav_view = findViewById(R.id.nav_view);

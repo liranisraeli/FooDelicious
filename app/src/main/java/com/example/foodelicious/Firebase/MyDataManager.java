@@ -13,8 +13,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.storage.FirebaseStorage;
 
@@ -41,11 +43,13 @@ public class MyDataManager {
 
 
     private ArrayList<MyRecipe> myRecipes;
+    private MyRecipe currentRecipe;
     private ArrayList<MyCategory> myCategories;
     private ArrayList<String> categoriesName;
     private String currentCategoryName;
     private ArrayList<MyRecipe> filteredCurrentRecipes;
     private String path;
+    private String myRecipesPath;
 
     public CallBackCreateRecipe getCallBackCreateRecipe() {
         return callBackCreateRecipe;
@@ -146,6 +150,10 @@ public class MyDataManager {
         return myCategories;
     }
 
+    public MyDataManager setMyCategories(ArrayList<MyCategory> myCategories) {
+        this.myCategories = myCategories;
+        return this;
+    }
     //Firebase Getters
 
     public FirebaseDatabase getRealTimeDB() {
@@ -167,6 +175,24 @@ public class MyDataManager {
 
     public MyDataManager setCurrentUser(MyUser currentUser) {
         this.currentUser = currentUser;
+        return this;
+    }
+
+    public MyRecipe getCurrentRecipe() {
+        return currentRecipe;
+    }
+
+    public MyDataManager setCurrentRecipe(MyRecipe currentRecipe) {
+        this.currentRecipe = currentRecipe;
+        return this;
+    }
+
+    public String getMyRecipesPath() {
+        return myRecipesPath;
+    }
+
+    public MyDataManager setMyRecipesPath(String myRecipesPath) {
+        this.myRecipesPath = myRecipesPath;
         return this;
     }
 
@@ -200,6 +226,30 @@ public class MyDataManager {
         myRef.child("method steps").setValue(recipe.getMethodSteps());
         myRef.child("favorites").setValue(recipe.isFavorite());
         myRef.child("ingredients").setValue(recipe.getIngredients());
+    }
+
+    public void loadRecipes(String uid) {
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<MyRecipe> recipes = new ArrayList<>();
+                if (snapshot.exists()) {
+                    for (DataSnapshot child : snapshot.getChildren()) {
+                        try {
+                            MyRecipe recipe = child.getValue(MyRecipe.class);
+                            recipes.add(recipe);
+                        } catch (Exception ex) {
+                        }
+                    }
+                }
+                myRecipes = recipes;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
     }
 }
 

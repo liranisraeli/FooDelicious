@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodelicious.Activities.Activity_create_recipe;
+import com.example.foodelicious.Firebase.MyDataManager;
 import com.example.foodelicious.Objects.Ingredient;
 import com.example.foodelicious.R;
 import com.google.android.material.button.MaterialButton;
@@ -34,11 +35,13 @@ public class IngredientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         void minus(Ingredient ingredient, int position);
     }
 
+    private final MyDataManager dataManager = MyDataManager.getInstance();
+
+
     private Activity activity;
     private ArrayList<Ingredient> ingredients;
     private IngredientListener ingredientlistener;
     Ingredient ingredient;
-    public boolean isTextChanged=false;
     private String text;
 
     public IngredientAdapter(Activity activity, ArrayList<Ingredient> ingredients){
@@ -132,6 +135,17 @@ public class IngredientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ingredient_LBL_amount = itemView.findViewById(R.id.ingredient_LBL_amount);
             ingredient_BTN_plus = itemView.findViewById(R.id.ingredient_BTN_plus);
             ingredient_BTN_minus = itemView.findViewById(R.id.ingredient_BTN_minus);
+
+            if(dataManager.getMyRecipesPath().equals("recipe")){
+                ingredient_LBL_Name.setHint("Ingredient Name:");
+                ingredient_BTN_plus.setVisibility(View.INVISIBLE);
+                ingredient_BTN_minus.setVisibility(View.INVISIBLE);
+
+            }else if(dataManager.getMyRecipesPath().equals("create")){
+                ingredient_LBL_Name.setHint("Enter Ingredient");
+                ingredient_BTN_plus.setVisibility(View.VISIBLE);
+                ingredient_BTN_minus.setVisibility(View.VISIBLE);
+            }
 
 
             ingredient_BTN_minus.setOnClickListener(new View.OnClickListener() {

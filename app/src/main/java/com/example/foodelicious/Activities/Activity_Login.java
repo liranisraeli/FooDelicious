@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 
 import com.example.foodelicious.Firebase.MyDataManager;
+import com.example.foodelicious.Objects.MyRecipe;
 import com.example.foodelicious.Objects.MyUser;
 import com.example.foodelicious.R;
 import com.firebase.ui.auth.AuthUI;
@@ -25,7 +26,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class Activity_Login extends AppCompatActivity {
@@ -72,12 +75,16 @@ public class Activity_Login extends AppCompatActivity {
         //Store the user UID by Phone number
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference myRef = dataManager.getRealTimeDB().getReference("users").child(user.getUid());
+        DatabaseReference myRecipeRef = dataManager.getRealTimeDB().getReference("recipes").child(user.getUid());
         myRef.get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     MyUser user = dataSnapshot.getValue(MyUser.class);
-                    dataManager.setCurrentUser(user); // OR dataManager.getInstance().setCurrentUser(user);
+                    dataManager.setCurrentUser(user);
+                    dataManager.loadRecipes(user.getUid());
+                    // OR dataManager.getInstance().setCurrentUser(user);
+                     // OR dataManager.getInstance().setCurrentUser(user);
                     startActivity(new Intent(Activity_Login.this,MainActivity.class));
                 }
                 else{
@@ -87,7 +94,10 @@ public class Activity_Login extends AppCompatActivity {
                 finish();
             }
         });
+
     }
+
+
 
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
         IdpResponse response = result.getIdpResponse();
