@@ -11,6 +11,6 @@ public class App extends Application {
 
 
         //Initiate FireBase Managers
-        MyDataManager.initHelper();
+        MyDataManager.initHelper(this);
     }
 }

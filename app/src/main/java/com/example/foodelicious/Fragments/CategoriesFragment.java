@@ -1,5 +1,6 @@
 package com.example.foodelicious.Fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +30,7 @@ public class CategoriesFragment extends Fragment {
     CallBackClick callBackCategoryClick = new CallBackClick(){
         @Override
         public void onClicked() {
-            dataManager.setPath("categories");
+//            dataManager.setPath("categories");
             getParentFragmentManager().beginTransaction().replace(R.id.panel_Fragment,RecipesFragment.class,null).commit();
         }
 
@@ -64,7 +66,6 @@ public class CategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_categories, container, false);
         dataManager.setCallBackCreateRecipe(callBackCreateRecipe);
-
         findViews(view);
         initAdapter();
         return view;
@@ -78,7 +79,6 @@ public class CategoriesFragment extends Fragment {
         categoriesAdapter = new CategoriesAdapter(this.activity, dataManager.getMyCategories(), callBackCategoryClick);
         category_RECYC.setLayoutManager(new GridLayoutManager(this.activity,2));
         category_RECYC.setAdapter(categoriesAdapter);
-        categoriesAdapter.notifyDataSetChanged();
     }
 
 }

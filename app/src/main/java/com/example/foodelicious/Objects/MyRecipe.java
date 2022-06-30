@@ -6,7 +6,7 @@ public class MyRecipe {
 
     private String name;
     private String methodSteps;
-    private int recipeUid;
+    private String recipeUid;
     private String category;
     private boolean favorite;
     private ArrayList<Ingredient> ingredients;
@@ -14,7 +14,7 @@ public class MyRecipe {
     public  MyRecipe() {
     }
 
-    public MyRecipe(String name, String methodSteps, int recipeUid, String category, boolean favorite, ArrayList<Ingredient> ingredients) {
+    public MyRecipe(String name, String methodSteps, String recipeUid, String category, boolean favorite, ArrayList<Ingredient> ingredients) {
         this.name = name;
         this.methodSteps = methodSteps;
         this.recipeUid = recipeUid;
@@ -22,6 +22,8 @@ public class MyRecipe {
         this.favorite = favorite;
         this.ingredients = ingredients;
     }
+
+
 
     public boolean isFavorite() {
         return favorite;
@@ -58,11 +60,11 @@ public class MyRecipe {
         this.methodSteps = methodSteps;
     }
 
-    public int getRecipeUid() {
+    public String getRecipeUid() {
         return recipeUid;
     }
 
-    public MyRecipe setRecipeUid(int recipeUid) {
+    public MyRecipe setRecipeUid(String recipeUid) {
         this.recipeUid = recipeUid;
         return this;
     }

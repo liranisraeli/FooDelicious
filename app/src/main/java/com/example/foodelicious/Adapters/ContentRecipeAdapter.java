@@ -4,20 +4,15 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodelicious.Activities.Activity_create_recipe;
 import com.example.foodelicious.Firebase.MyDataManager;
 import com.example.foodelicious.Objects.Ingredient;
 import com.example.foodelicious.Objects.MyRecipe;
 import com.example.foodelicious.R;
-
-import java.util.ArrayList;
 
 public class ContentRecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -25,17 +20,17 @@ public class ContentRecipeAdapter extends RecyclerView.Adapter<RecyclerView.View
     private final MyDataManager dataManager = MyDataManager.getInstance();
 
     private Activity activity;
-    private ArrayList<MyRecipe> recipes;
+    private MyRecipe recipe;
 
 
-    public ContentRecipeAdapter(Activity activity, ArrayList<MyRecipe> recipes) {
+    public ContentRecipeAdapter(Activity activity, MyRecipe recipe) {
         this.activity = activity;
-        this.recipes = recipes;
+        this.recipe = recipe;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_content_cards, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_context_recipe, parent, false);
         ContentRecipeHolder contentRecipeHolder = new ContentRecipeHolder(view);
         return contentRecipeHolder;
     }
@@ -44,22 +39,22 @@ public class ContentRecipeAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
 
         final ContentRecipeHolder holder = (ContentRecipeHolder) viewHolder;
-        MyRecipe recipe = getRecipe(position);
+        recipe = dataManager.getCurrentRecipe();
 
 
     }
 
     @Override
     public int getItemCount() {
-        if (recipes == null) {
+        if (recipe == null) {
             return 0;
         }
-        return recipes.size();
+        return 0;
     }
-
-    public MyRecipe getRecipe(int position) {
-        return recipes.get(position);
-    }
+//
+//    public MyRecipe getRecipe(int position) {
+//        return recipe.get(position);
+//    }
 
     class ContentRecipeHolder extends RecyclerView.ViewHolder {
         private TextView recipe_content_LBL_title;

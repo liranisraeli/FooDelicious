@@ -63,10 +63,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    //todo check
-    private ArrayList<MyRecipe> myRecipes = new ArrayList();
 
-    private Bundle bundle;
 
 
     private final MyDataManager dataManager = MyDataManager.getInstance();
@@ -83,16 +80,16 @@ public class MainActivity extends AppCompatActivity {
     private MaterialToolbar panel_Toolbar_Top;
     private NavigationView nav_view;
     private View header;
-    private FloatingActionButton navigation_header_container_FAB_profile_pic;
+    //    private FloatingActionButton navigation_header_container_FAB_profile_pic;
     private MaterialTextView header_TXT_username;
     private CircleImageView header_IMG_user;
-    private CircularProgressIndicator header_BAR_progress;
+    //    private CircularProgressIndicator header_BAR_progress;
     public static final String KEY_PROFILE_PICTURES = "profile_pictures";
 
     //Fragment
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    public static final int Profile = 0,All_Recipes= 1, Categories =2, Favorites=3;
+    public static final int Profile = 0, All_Recipes = 1, Categories = 2, Favorites = 3;
     private final int SIZE = 4;
     private Fragment[] panel_fragments;
 
@@ -106,12 +103,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         findViews();
-        setFragments();
-        panel_Toolbar_Top.setTitle("Categories");
-        replaceFragments(panel_fragments[Categories]);
         initButtons();
-        updateUI();
+        setFragments();
+        updateUser();
+        dataManager.setPath("main");
+        panel_Toolbar_Top.setTitle("Profile");
+        replaceFragments(panel_fragments[Profile]);
     }
+
 
     private void findViews() {
         panel_Toolbar_Top = findViewById(R.id.panel_Toolbar_Top);
@@ -123,11 +122,11 @@ public class MainActivity extends AppCompatActivity {
 
         //nav
         nav_view = findViewById(R.id.nav_view);
-        header =nav_view.getHeaderView(0);
-        navigation_header_container_FAB_profile_pic =(FloatingActionButton)header.findViewById(R.id.navigation_header_container_FAB_profile_pic);
-        header_TXT_username =header.findViewById(R.id.header_TXT_username);
-        header_IMG_user =header.findViewById(R.id.header_IMG_user);
-        header_BAR_progress =header.findViewById(R.id.header_BAR_progress);
+        header = nav_view.getHeaderView(0);
+//        navigation_header_container_FAB_profile_pic =(FloatingActionButton)header.findViewById(R.id.navigation_header_container_FAB_profile_pic);
+        header_TXT_username = header.findViewById(R.id.header_TXT_username);
+        header_IMG_user = header.findViewById(R.id.header_IMG_user);
+//        header_BAR_progress =header.findViewById(R.id.header_BAR_progress);
     }
 
 
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void initButtons(){
+    private void initButtons() {
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -164,24 +163,24 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        navigation_header_container_FAB_profile_pic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changePic();
-            }
-        });
+//        navigation_header_container_FAB_profile_pic.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                changePic();
+//            }
+//        });
 
         header_IMG_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changePic();
+//                changePic();
             }
         });
 
         panel_BottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.profile:
                         panel_Toolbar_Top.setTitle("Profile");
                         replaceFragments(panel_fragments[Profile]);
@@ -192,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragments(panel_fragments[All_Recipes]);
                         break;
                     case R.id.allCategories:
+                        dataManager.setPath("categories");
                         panel_Toolbar_Top.setTitle("Categories");
                         replaceFragments(panel_fragments[Categories]);
                         break;
@@ -208,14 +208,13 @@ public class MainActivity extends AppCompatActivity {
         toolbar_FAB_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,Activity_create_recipe.class));
+                startActivity(new Intent(MainActivity.this, Activity_create_recipe.class));
 
             }
         });
 
 
     }
-
 
 
     /**
@@ -231,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void updateUI() {
+    private void updateUser() {
         DatabaseReference myRef = realtimeDB.getReference("users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -248,43 +247,105 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        //todo check if load
-
-        DatabaseReference userRef = realtimeDB.getReference("recipes");
-        userRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                myRecipes = new ArrayList<>();
-                for (DataSnapshot child : snapshot.getChildren()) {
-                    try {
-                        String name = child.child("name").getValue(String.class);
-                        String methodSteps = child.child("method steps").getValue(String.class);
-                        boolean isFavorite = child.child("favorites").getValue(Boolean.class);
-                        String category = child.child("categories").getValue(String.class);
-                        MyRecipe tempRecipe = new MyRecipe();
-                        tempRecipe.setName(name);
-                        tempRecipe.setMethodSteps(methodSteps);
-                        tempRecipe.setFavorite(isFavorite);
-                        tempRecipe.setCategory(category);
-
-                        myRecipes.add(tempRecipe);
-                    } catch (Exception ex) {
-                    }
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-
     }
+
+
+//    private void updateUI() {
+//        DatabaseReference myRef = realtimeDB.getReference("users/").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+//        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                header_TXT_username.setText(snapshot.child("name").getValue(String.class));
+//                Uri myUri = Uri.parse(snapshot.child("profileImgUrl/").getValue(String.class));
+//                Glide.with(MainActivity.this)
+//                        .load(myUri)
+//                        .into(header_IMG_user);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//        //todo check if load
+//        ArrayList<MyRecipe> myRecipes = new ArrayList();
+//        DatabaseReference recipceRef = realtimeDB.getReference("recipes/").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("categories");
+//        for (int i = 0; i < dataManager.getCategoriesName().size(); i++) {
+//            DatabaseReference categoryRef = recipceRef.child(dataManager.getCategoriesName().get(i));
+//            categoryRef.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    ArrayList<Ingredient> recipeIngredients = new ArrayList<>();
+//                    for (DataSnapshot child : snapshot.getChildren()) {
+//                        try {
+//                            MyRecipe tempRecipe = new MyRecipe();
+//                            recipeIngredients = loadIngredients(child);
+//                            tempRecipe.setRecipeUid(Integer.parseInt(child.getKey()));
+//                            String name = child.child("name").getValue(String.class);
+//                            String methodSteps = child.child("method steps").getValue(String.class);
+//                            boolean isFavorite = child.child("favorites").getValue(Boolean.class);
+//                            String category = child.child("category").getValue(String.class);
+//                            tempRecipe.setName(name);
+//                            tempRecipe.setMethodSteps(methodSteps);
+//                            tempRecipe.setFavorite(isFavorite);
+//                            tempRecipe.setCategory(category);
+//                            tempRecipe.setIngredients(recipeIngredients);
+//                            getCategory(category);
+//                            myRecipes.add(tempRecipe);
+//
+//                        } catch (Exception ex) {
+//                        }
+//                    }
+//
+//
+//                }
+//
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                }
+//            });
+//        }
+//        dataManager.setMyRecipes(myRecipes);
+//    }
+//
+//
+//    private void getCategory(String category) {
+//        for(int i=0;i<dataManager.getMyCategories().size();i++){
+//            if(dataManager.getMyCategories().get(i).getTitle().equals(category)){
+//                dataManager.getMyCategories().get(i).setItems_Counter(dataManager.getMyCategories().get(i).getItems_Counter()+1);
+//            }
+//        }
+//    }
+//
+//    private  ArrayList<Ingredient> loadIngredients(DataSnapshot child) {
+//        ArrayList<Ingredient> recipeIngredients = new ArrayList<>();
+//        Log.d("dora", child.child("ingredients").getRef().toString());
+//        DatabaseReference ingredientRef = child.child("ingredients").getRef();
+//        ingredientRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot dataSnapChild : snapshot.getChildren()) {
+//                    try {
+//                        Ingredient ingredient = new Ingredient();
+//                        ingredient.setName(dataSnapChild.child("name").getValue().toString());
+//                        ingredient.setAmount(Integer.parseInt(dataSnapChild.child("amount").getValue().toString()));
+//                        recipeIngredients.add(ingredient);
+//                        Log.d("dora", dataSnapChild.child("name").getValue().toString());
+//                    } catch (Exception ex) {
+//                    }
+//                }
+//
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//        return recipeIngredients;
+//    }
 
 
     /**
@@ -300,7 +361,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        header_BAR_progress.setVisibility(View.VISIBLE);
+//        header_BAR_progress.setVisibility(View.VISIBLE);
         StorageReference storageRef = dataManager.getStorage().getReference().child(KEY_PROFILE_PICTURES).child(dataManager.getFirebaseAuth().getCurrentUser().getUid());
         if (data != null) {
             Uri uri = data.getData();
@@ -318,6 +379,7 @@ public class MainActivity extends AppCompatActivity {
             UploadTask uploadTask = storageRef.putBytes(bytes);
             uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 MyUser userToStoreNav = dataManager.getCurrentUser();
+
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                     if (task.isSuccessful()) {
@@ -341,7 +403,7 @@ public class MainActivity extends AppCompatActivity {
                                 });
                             }
                         });
-                        header_BAR_progress.setVisibility(View.INVISIBLE);
+//                        header_BAR_progress.setVisibility(View.INVISIBLE);
                     } else {
                         String message = task.getException().getMessage();
                         Toast.makeText(MainActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
@@ -354,7 +416,7 @@ public class MainActivity extends AppCompatActivity {
         // [END upload_memory]
     }
 
-    private void replaceFragments(Fragment fragment){
+    private void replaceFragments(Fragment fragment) {
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.panel_Fragment, fragment, null);
@@ -362,5 +424,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
 }
+

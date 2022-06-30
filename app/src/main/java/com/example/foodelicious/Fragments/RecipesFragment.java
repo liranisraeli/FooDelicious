@@ -81,7 +81,7 @@ public class RecipesFragment extends Fragment {
 
         recipes_RECYC.setLayoutManager(new GridLayoutManager(this.activity,1));
         recipes_RECYC.setAdapter(recipeAdapter);
-        recipeAdapter.notifyDataSetChanged();
+        //recipeAdapter.notifyDataSetChanged();
 
 
     }

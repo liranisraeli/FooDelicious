@@ -2,6 +2,8 @@ package com.example.foodelicious.Firebase;
 
 
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 import com.example.foodelicious.CallBacks.CallBackCreateRecipe;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 public class MyDataManager {
 
     private static MyDataManager single_instance = null;
+    private Context context;
 
     private CallBackCreateRecipe callBackCreateRecipe;
     private final FirebaseAuth firebaseAuth;
@@ -34,6 +37,8 @@ public class MyDataManager {
     private String currentListUid;
     private String currentListCreator;
     private String currentListTitle;
+
+
 
 
 
@@ -55,21 +60,24 @@ public class MyDataManager {
         return this;
     }
 
-    private MyDataManager() {
+    private MyDataManager(Context context) {
         firebaseAuth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance();
         realTimeDB = FirebaseDatabase.getInstance();
+        this.context = context;
         buildArrays();
     }
+
+
 
 
     public static MyDataManager getInstance() {
         return single_instance;
     }
 
-    public static MyDataManager initHelper() {
+    public static MyDataManager initHelper(Context context) {
         if (single_instance == null) {
-            single_instance = new MyDataManager();
+            single_instance = new MyDataManager(context);
         }
         return single_instance;
     }
@@ -216,10 +224,11 @@ public class MyDataManager {
     }
 
     public void addNewRecipe(MyRecipe recipe) {
-        DatabaseReference myRef = realTimeDB.getReference(KEY_RECIPES).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("categories").child(recipe.getCategory()).child(myRecipes.size()+"");
+        DatabaseReference myRef = realTimeDB.getReference(KEY_RECIPES).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("categories").child(recipe.getCategory()).child(recipe.getRecipeUid());
         myRef.child("name").setValue(recipe.getName());
         myRef.child("method steps").setValue(recipe.getMethodSteps());
         myRef.child("favorites").setValue(recipe.isFavorite());
+        myRef.child("category").setValue(recipe.getCategory());
         myRef.child("ingredients").setValue(recipe.getIngredients());
     }
 

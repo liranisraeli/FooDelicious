@@ -43,6 +43,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         CategoryHolder holder = (CategoryHolder) viewHolder;
         MyCategory category = getItem(position);
+        Log.d("roman =",dataManager.getMyRecipes().size() + " 46");
 
         holder.list_LBL_title.setText(category.getTitle());
         holder.list_LBL_counter.setText("recipes amount " + category.getItems_Counter());
@@ -70,21 +71,25 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private MaterialTextView list_LBL_title;
         private MaterialTextView list_LBL_counter;
 
-
         public CategoryHolder(final View itemView) {
             super(itemView);
             list_IMG_image = itemView.findViewById(R.id.list_IMG_image);
             list_LBL_title = itemView.findViewById(R.id.list_LBL_title);
             list_LBL_counter = itemView.findViewById(R.id.list_LBL_counter);
+            Log.d("roman =",dataManager.getMyRecipes().size() + "79");
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (callBackCategoryClick != null) {
                         ArrayList<MyRecipe> recipes=new ArrayList<MyRecipe>();
-                        for(MyRecipe recipe: dataManager.getMyRecipes()){
-                            if(recipe.getCategory().equals(dataManager.getCategoriesName().get(getAdapterPosition()))){
-                                recipes.add(recipe);
+                       // for(MyRecipe recipe: dataManager.getMyRecipes())
+                        Log.d("roman =",dataManager.getMyRecipes().size() + "88");
+                        dataManager.setMyRecipes(removeDuplicates(dataManager.getMyRecipes()));
+                        for(int i=0; i<dataManager.getMyRecipes().size(); i++) {
+                            if(dataManager.getMyRecipes().get(i).getCategory().equals(dataManager.getCategoriesName().get(getAdapterPosition()))){
+                                recipes.add(dataManager.getMyRecipes().get(i));
                             }
                         }
                         dataManager.setFilteredCurrentRecipes(recipes);
@@ -97,5 +102,29 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
     }
+
+
+    // Function to remove duplicates from an ArrayList
+    public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
+    {
+
+        // Create a new ArrayList
+        ArrayList<T> newList = new ArrayList<T>();
+
+        // Traverse through the first list
+        for (T element : list) {
+
+            // If this element is not present in newList
+            // then add it
+            if (!newList.contains(element)) {
+
+                newList.add(element);
+            }
+        }
+
+        // return the new list
+        return newList;
+    }
+
 }
 

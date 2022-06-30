@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,9 +22,11 @@ import com.example.foodelicious.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Activity_create_recipe extends AppCompatActivity {
 
@@ -138,10 +141,15 @@ public class Activity_create_recipe extends AppCompatActivity {
                 getCategory();
                 tempRecipe.setFavorite(false);
                 tempRecipe.setIngredients(ingredients);
-                tempRecipe.setRecipeUid(dataManager.getMyRecipes().size()+1);
+                tempRecipe.setRecipeUid(UUID.randomUUID().toString());
                 dataManager.getMyRecipes().add(tempRecipe);
                 dataManager.addNewRecipe(tempRecipe);
+                Log.d("roman",dataManager.getMyRecipes().size() + "");
                 dataManager.getCallBackCreateRecipe().createRecipe();
+                for (int i = 0; i <dataManager.getMyRecipes().size() ; i++) {
+                    Log.d("roman"+i,dataManager.getMyRecipes().get(i).toString());
+
+                }
                 finish();
             }
         });
