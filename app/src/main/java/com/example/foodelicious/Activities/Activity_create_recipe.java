@@ -32,7 +32,6 @@ public class Activity_create_recipe extends AppCompatActivity {
 
     private TextInputLayout form_EDT_name;
     private EditText editItem_EDT_notes;
-    private TextInputLayout createRecipe_TIN_category;
     private RecyclerView ingredients_RECYC;
     private FloatingActionButton panel_BTN_add;
     private MaterialButton panel_BTN_create;
@@ -55,8 +54,8 @@ public class Activity_create_recipe extends AppCompatActivity {
         setContentView(R.layout.activity_create_recipe);
         dataManager.setMyRecipesPath("create");
         findViews();
-        initAdapter();
         initButtons();
+        initAdapter();
     }
 
 
@@ -71,7 +70,6 @@ public class Activity_create_recipe extends AppCompatActivity {
             @Override
             public void clicked(Ingredient ingredient, int position,String name) {
                 ingredient.setName(name);
-                Toast.makeText(Activity_create_recipe.this, ingredient.getName(),Toast.LENGTH_SHORT).show();
                 ingredients_RECYC.getAdapter().notifyItemChanged(position);
             }
 
@@ -93,7 +91,7 @@ public class Activity_create_recipe extends AppCompatActivity {
 
         });
 
-        ingredientAdapter.notifyDataSetChanged();
+       // ingredientAdapter.notifyDataSetChanged();
 
         categoryAdapter = new ArrayAdapter<String>(this,R.layout.drop_down_category,dataManager.getCategoriesName());
         category_AutoCompleteTextViewCategory.setAdapter(categoryAdapter);
@@ -108,17 +106,24 @@ public class Activity_create_recipe extends AppCompatActivity {
         panel_BTN_create = findViewById(R.id.panel_BTN_create);
         ingredients_RECYC = findViewById(R.id.ingredients_RECYC);
         panel_BTN_add = findViewById(R.id.panel_BTN_add);
-        createRecipe_TIN_category = findViewById(R.id.createRecipe_TIN_category);
         category_AutoCompleteTextViewCategory = findViewById(R.id.category_AutoCompleteTextViewCategory);
     }
 
 
+    public String getCategorySelected() {
+        return categorySelected;
+    }
+
+    public Activity_create_recipe setCategorySelected(String categorySelected) {
+        this.categorySelected = categorySelected;
+        return this;
+    }
 
     private void initButtons() {
         category_AutoCompleteTextViewCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                categorySelected = adapterView.getItemAtPosition(i).toString();
+                setCategorySelected(adapterView.getItemAtPosition(i).toString());
             }
         });
 
@@ -137,7 +142,7 @@ public class Activity_create_recipe extends AppCompatActivity {
                 MyRecipe tempRecipe = new MyRecipe();
                 tempRecipe.setName(form_EDT_name.getEditText().getText().toString());
                 tempRecipe.setMethodSteps(editItem_EDT_notes.getText().toString());
-                tempRecipe.setCategory(categorySelected);
+                tempRecipe.setCategory(getCategorySelected());
                 getCategory();
                 tempRecipe.setFavorite(false);
                 tempRecipe.setIngredients(ingredients);
@@ -158,7 +163,7 @@ public class Activity_create_recipe extends AppCompatActivity {
 
     private void getCategory() {
         for(int i=0;i<dataManager.getMyCategories().size();i++){
-            if(dataManager.getMyCategories().get(i).getTitle().equals(categorySelected)){
+            if(dataManager.getMyCategories().get(i).getTitle().equals(getCategorySelected())){
                 dataManager.getMyCategories().get(i).setItems_Counter(dataManager.getMyCategories().get(i).getItems_Counter()+1);
             }
         }

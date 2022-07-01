@@ -155,7 +155,7 @@ public class Activity_Login extends AppCompatActivity {
         DatabaseReference recipceRef = realtimeDB.getReference("recipes/").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("categories");
         for (int i = 0; i < dataManager.getCategoriesName().size(); i++) {
             DatabaseReference categoryRef = recipceRef.child(dataManager.getCategoriesName().get(i));
-            categoryRef.addValueEventListener(new ValueEventListener() {
+            categoryRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     ArrayList<Ingredient> recipeIngredients = new ArrayList<>();

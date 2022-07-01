@@ -82,10 +82,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     Log.d("roman 82",dataManager.getMyRecipes().size() + "");
                     if (callBackCategoryClick != null) {
 //                        dataManager.setMyRecipes(removeDuplicates(dataManager.getMyRecipes()));
-                        dataManager.setCurrentCategoryName(dataManager.getCategoriesName().get(getAdapterPosition()));
+                        dataManager.setCurrentCategoryName(categories.get(getAdapterPosition()).getTitle());
                         setFilteredList(dataManager.getCurrentCategoryName());
                         dataManager.setFilteredCurrentRecipes(recipes);
-                        list_LBL_counter.setText("recipes amount " + dataManager.getMyCategories().get(getAdapterPosition()).getItems_Counter());
+                        //list_LBL_counter.setText("recipes amount " + dataManager.getMyCategories().get(getAdapterPosition()).getItems_Counter());
                         callBackCategoryClick.onClicked();
 
                     }

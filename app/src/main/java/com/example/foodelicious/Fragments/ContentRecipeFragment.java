@@ -123,7 +123,7 @@ public class ContentRecipeFragment extends Fragment {
 
         });
 
-        ingredientAdapter.notifyDataSetChanged();
+        //ingredientAdapter.notifyDataSetChanged();
 
     }
 
