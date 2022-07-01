@@ -79,6 +79,8 @@ public class CategoriesFragment extends Fragment {
         categoriesAdapter = new CategoriesAdapter(this.activity, dataManager.getMyCategories(), callBackCategoryClick);
         category_RECYC.setLayoutManager(new GridLayoutManager(this.activity,2));
         category_RECYC.setAdapter(categoriesAdapter);
+        Log.d("roman 82",dataManager.getMyRecipes().size() + "");
+
     }
 
 }

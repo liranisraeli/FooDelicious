@@ -39,9 +39,6 @@ public class MyDataManager {
     private String currentListTitle;
 
 
-
-
-
     private ArrayList<MyRecipe> myRecipes;
     private MyRecipe currentRecipe;
     private ArrayList<MyCategory> myCategories;

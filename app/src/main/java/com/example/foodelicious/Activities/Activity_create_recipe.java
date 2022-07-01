@@ -144,7 +144,6 @@ public class Activity_create_recipe extends AppCompatActivity {
                 tempRecipe.setRecipeUid(UUID.randomUUID().toString());
                 dataManager.getMyRecipes().add(tempRecipe);
                 dataManager.addNewRecipe(tempRecipe);
-                Log.d("roman",dataManager.getMyRecipes().size() + "");
                 dataManager.getCallBackCreateRecipe().createRecipe();
                 for (int i = 0; i <dataManager.getMyRecipes().size() ; i++) {
                     Log.d("roman"+i,dataManager.getMyRecipes().get(i).toString());

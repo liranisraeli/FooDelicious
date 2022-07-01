@@ -150,8 +150,6 @@ public class Activity_Login extends AppCompatActivity {
     }
 
     private void updateUI() {
-
-
         //todo check if load
         ArrayList<MyRecipe> myRecipes = new ArrayList();
         DatabaseReference recipceRef = realtimeDB.getReference("recipes/").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("categories");
@@ -206,7 +204,6 @@ public class Activity_Login extends AppCompatActivity {
 
     private  ArrayList<Ingredient> loadIngredients(DataSnapshot child) {
         ArrayList<Ingredient> recipeIngredients = new ArrayList<>();
-        Log.d("dora", child.child("ingredients").getRef().toString());
         DatabaseReference ingredientRef = child.child("ingredients").getRef();
         ingredientRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -217,7 +214,6 @@ public class Activity_Login extends AppCompatActivity {
                         ingredient.setName(dataSnapChild.child("name").getValue().toString());
                         ingredient.setAmount(Integer.parseInt(dataSnapChild.child("amount").getValue().toString()));
                         recipeIngredients.add(ingredient);
-                        Log.d("dora", dataSnapChild.child("name").getValue().toString());
                     } catch (Exception ex) {
                     }
                 }

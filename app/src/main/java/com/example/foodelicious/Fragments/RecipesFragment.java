@@ -60,8 +60,8 @@ public class RecipesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipes, container, false);
-        dataManager.setMyRecipesPath("recipe");
         findViews(view);
+        dataManager.setMyRecipesPath("recipe");
 
 
         return view;

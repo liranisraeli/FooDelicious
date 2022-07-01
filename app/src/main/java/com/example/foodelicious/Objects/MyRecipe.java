@@ -23,7 +23,17 @@ public class MyRecipe {
         this.ingredients = ingredients;
     }
 
-
+    @Override
+    public String toString() {
+        return "MyRecipe{" +
+                "name='" + name + '\'' +
+                ", methodSteps='" + methodSteps + '\'' +
+                ", recipeUid='" + recipeUid + '\'' +
+                ", category='" + category + '\'' +
+                ", favorite=" + favorite +
+                ", ingredients=" + ingredients +
+                '}';
+    }
 
     public boolean isFavorite() {
         return favorite;
