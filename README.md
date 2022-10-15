@@ -12,8 +12,8 @@
 
 ## :link: Menu
 >- [Features](https://github.com/liranisraeli/FooDelicious/blob/master/README.md#sparkles-features)
->- [Screen Gifs](https://github.com/liranisraeli/FooDelicious/blob/master/README.md#iphone-screen-gifs")
->- [Credits](https://github.com/DorelSaig/SuperMe/new/master?readme=1#credits "Credits")
+>- [Screen Gifs](https://github.com/liranisraeli/FooDelicious/blob/master/README.md#iphone-screen-gifs)
+>- [Credits](https://github.com/liranisraeli/FooDelicious/blob/master/README.md#credits)
 
 ## :sparkles: Features
 >- **Login and Sign-up** with any valid phone number
