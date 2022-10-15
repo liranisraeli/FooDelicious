@@ -11,9 +11,8 @@
 >- The app was built to give a solution to the old fashion way of writing on paper/built-in phone notes
 
 ## :link: Menu
->- [Features](https://github.com/DorelSaig/SuperMe/new/master?readme=1#sparkles-features "Features")
->- [Screenshots](https://github.com/DorelSaig/SuperMe/new/master?readme=1#iphone-screenshots "Screenshots")
->- [Wish List (Future planned features)](https://github.com/DorelSaig/SuperMe/new/master?readme=1#pray-wish-list-future-planned-features "Wish List (Future planned features)")
+>- [Features](https://github.com/liranisraeli/FooDelicious/blob/master/README.md#sparkles-features)
+>- [Screen Gifs](https://github.com/liranisraeli/FooDelicious/blob/master/README.md#iphone-screen-gifs")
 >- [Credits](https://github.com/DorelSaig/SuperMe/new/master?readme=1#credits "Credits")
 
 ## :sparkles: Features
