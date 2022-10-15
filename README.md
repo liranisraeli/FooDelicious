@@ -62,6 +62,7 @@
 |<img src="https://media.giphy.com/media/ckRKRGo99sBmogKUVy/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/p8zwQ3KEsiunw2oyXP/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/XouRWKDlg3TGYP6eKJ/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/IgfmGFYgeWLk2OLHKb/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/KNp3dio11PjSgv5n33/giphy.gif" alt="animated"/>|
 
 </br>
+
 ## 	:hammer_and_wrench: Built Using:
 >- Android Studio
 >- Google Firebase
