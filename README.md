@@ -55,24 +55,15 @@
 
 |Add Recipe Screen|Fill Item Name|Fill Item Category|
 |--|--|--|
-|<img src="https://media.giphy.com/media/l1eByNzfav8HXsFLED/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/LPgooRJqdWsM9qGWcf/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/tr4Boo2XhJq6Rp247r/giphy.gif" alt="animated"/>|
+|<img src="https://media.giphy.com/media/l1eByNzfav8HXsFLED/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/IFp6HK7NSlWxWTsNPD/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/tr4Boo2XhJq6Rp247r/giphy.gif" alt="animated"/>|
 
 </br>
 
-|Fill Item Size|Fill Item Color|Fill Item Favorite|Save Item|
+|Fill method|Fill Ingredients|Mark Favorite|Create Recipe|
 |--|--|--|--|
-|<img src="https://media.giphy.com/media/Aj7wuQUemAag1lWVQL/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/JF8TEv3chrNxj25YLM/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/9XHl1WY5vSj29CtaOv/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/vW8FT7CCZMFAYjhTAi/giphy.gif" alt="animated"/>|
+|<img src="https://media.giphy.com/media/ckRKRGo99sBmogKUVy/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/p8zwQ3KEsiunw2oyXP/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/XouRWKDlg3TGYP6eKJ/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/IgfmGFYgeWLk2OLHKb/giphy.gif" alt="animated"/>|
 
 </br>
-</br>
-
-### :walking: Outfits
-
-|Add Outfit|Fill Outfit Name|Fill Outfit Items|Save Outfit|
-|--|--|--|--|
-|<img src="https://media.giphy.com/media/Xswc1E2RtgsUD03yvt/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/Vq2IPrRJdnHe9rl08v/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/mK7R7x5YMgeQQf0qws/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/kWb8Cpjstx5lKZ45Uy/giphy.gif" alt="animated"/>|
-
-
 
 ## 	:hammer_and_wrench: Built Using:
 >- Android Studio
@@ -82,10 +73,5 @@
 >    - **Authentication:** Firebase Auth Using Phone Number 
 
 ## Credits:
->- [Glide - bumptech](https://github.com/bumptech/glide)
->- [Circle ImageView - hdodenhof](https://github.com/hdodenhof/CircleImageView)
->- [ImagePicker - dhaval2404](https://github.com/Dhaval2404/ImagePicker)
->- [Country Code Picker(CCP) - hbb20](https://github.com/hbb20/CountryCodePickerProject)
->- [Notifications - Google volley](https://github.com/google/volley)
 >- [Lottie-Android - airbnb](https://github.com/airbnb/lottie-android)
 >- [Icons - Flat Icons](www.flaticon.com)
