@@ -1,6 +1,6 @@
 # FooDelicious
  <p align="center">
-<img src="https://github.com/liranisraeli/FooDelicious/blob/master/app/src/main/res/drawable/ic_logo.png" width="700" height="400" />
+<img src="https://github.com/liranisraeli/FooDelicious/blob/master/app/src/main/res/drawable/ic_logo.png" width="500" height="400" />
 </p>
 
 #  <p align="center"> Welcome to FooDelicious! </p>
@@ -55,7 +55,7 @@
 
 |Add Recipe Screen|Fill Item Name|Fill Item Category|
 |--|--|--|
-|<img src="https://media.giphy.com/media/l1eByNzfav8HXsFLED/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/IFp6HK7NSlWxWTsNPD/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/tr4Boo2XhJq6Rp247r/giphy.gif" alt="animated"/>|
+|<img src="https://media.giphy.com/media/l1eByNzfav8HXsFLED/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/IFp6HK7NSlWxWTsNPD/giphy.gif" alt="animated"/>|<img src="https://media.giphy.com/media/Ok2zYOtVHBOpuPqlVb/giphy.gif" alt="animated"/>|
 
 </br>
 
@@ -68,7 +68,7 @@
 ## 	:hammer_and_wrench: Built Using:
 >- Android Studio
 >- Google Firebase
->    - **Database:** Firestore + Realtime Firebase
+>    - **Database:** Realtime Firebase
 >    - **Storage:** Firebase Cloud Storage
 >    - **Authentication:** Firebase Auth Using Phone Number 
 
