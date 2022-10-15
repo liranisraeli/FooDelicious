@@ -27,10 +27,9 @@
 
 
 ## :iphone: Screen Gifs
-- [Login](https://github.com/dorindorsman/C_Style#calling-login)</br>
-- [Sign Up](https://github.com/dorindorsman/C_Style/blob/master/README.md#pencil2-sign-up)</br>
-- [Items](https://github.com/dorindorsman/C_Style/blob/master/README.md#shirt-items)</br>
-- [Outfits](https://github.com/dorindorsman/C_Style/blob/master/README.md#walking-outfits)</br>
+- [Login](https://github.com/liranisraeli/FooDelicious/blob/master/README.md#calling-login)</br>
+- [Sign Up](https://github.com/liranisraeli/FooDelicious/blob/master/README.md#pencil2-sign-up)</br>
+- [Recipes](https://github.com/liranisraeli/FooDelicious/blob/master/README.md#-recipes)</br>
 
 ### :calling: Login
 
